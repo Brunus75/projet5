@@ -43,7 +43,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="statut", type="string", length=64, nullable=false, columnDefinition="ENUM('en attente', 'accepté', 'rejecté')", options={"default":"en attente"})
+     * @ORM\Column(name="statut", type="string", length=64, nullable=false, columnDefinition="ENUM('en attente', 'accepté', 'rejeté')", options={"default":"en attente"})
      */
     private $statut;
 

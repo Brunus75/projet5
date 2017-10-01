@@ -58,13 +58,13 @@ class Image
      */
     public function preUpload()
     {
-        // If there is no file (optional field), we do nothing
+        // S'il n'y a pas de fichier (champ optionnel), nous ne faisons rien
         if (null === $this->file) {
             return;
         }
-        // The name of the file is its id, we have just to store its extension
+        // Le nom du fichier est son identifiant, il suffit de stocker son extension
         $this->ext = $this->file->guessExtension();
-        // And we generate the alt attribute of the <img> tag, to the value of the file name on the user's PC
+        // Et nous générons l'attribut alt de la balise <img>, à la valeur du nom de fichier sur l de l'utilisateur
         $this->alt = $this->file->getClientOriginalName();
     }
 
@@ -74,11 +74,11 @@ class Image
      */
     public function upload()
     {
-        // If there is no file (optional field), we do nothing
+        // S'il n'y a pas de fichier (champ optionnel), nous ne faisons rien
         if (null === $this->file) {
             return;
         }
-        // If we had an old file (attribute tempFilename not null), we delete it
+        // Si nous avons un ancien fichier (attribut tempFilename non nul), nous le supprimons
         if (null !== $this->tempFilename) {
             $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
             if (file_exists($oldFile)) {
@@ -97,13 +97,6 @@ class Image
         } elseif ($this->ext = 'gif') {
             $image->save($this->getUploadDir() . '/' . $fileName,IMAGETYPE_GIF, 50);
         }
-
-        /*
-        // We move the file sent in the directory of our choice
-        $this->file->move(
-            $this->getUploadRootDir(), // The destination directory
-            $this->id.'.'.$this->ext   // The name of the file to create, here "id.extension"
-        );*/
     }
 
     /**
@@ -111,7 +104,7 @@ class Image
      */
     public function preRemoveUpload()
     {
-        // The file name is temporarily saved because it depends on the id
+        // Le nom du fichier est temporairement sauvegardé car il dépend de l'ID
         $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->ext;
     }
     /**
@@ -119,25 +112,25 @@ class Image
      */
     public function removeUpload()
     {
-        // In PostRemove, we do not have access to the id, we use our saved name
+        // Dans PostRemove, nous n'avons pas accès à l'identifiant, nous utilisons notre nom enregistré
         if (file_exists($this->tempFilename)) {
-            // We delete the file
+            // Nous supprimons le fichier
             unlink($this->tempFilename);
         }
     }
     public function getUploadDir()
     {
-        // In PostRemove, we do not have access to the id, we use our saved name
+        // Dans PostRemove, nous n'avons pas accès à l'identifiant, nous utilisons notre nom enregistré
         return 'uploads/img';
     }
     protected function getUploadRootDir()
     {
-        // We return the relative path to the image
+        // Nous renvoyons le chemin relatif à l'image
         return __DIR__.'/../../../web/'.$this->getUploadDir();
     }
     public function getWebPath()
     {
-        // We build the web path
+        // Nous construisons le chemin du Web
         return $this->getUploadDir().'/'.$this->getId().'.'.$this->getExt();
     }
 
@@ -205,12 +198,11 @@ class Image
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
-        // We check if we already had a file for this entity
+        // Nous vérifions si nous avions déjà un fichier pour cette entité
         if (null !== $this->ext) {
-            // We save the file extension to delete it later
+            // Nous sauvegardons l'extension de fichier pour la supprimer plus tard
             $this->tempFilename = $this->ext;
-            // The values ​​of the url and alt attributes are reset
-            $this->ext = null;
+        // Les valeurs des attributs url et alt sont réinitialisées            $this->ext = null;
             $this->alt = null;
         }
     }

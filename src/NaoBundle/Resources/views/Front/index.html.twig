@@ -1,0 +1,65 @@
+{% extends "NaoBundle::layout.html.twig" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/observations.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div id="project" class="col-xs-12 col-md-6">
+            <h1 id="projectTitle">Le projet</h1>
+            <p>Projet d'une application participative aux passionnés d’ornithologie.</p>
+            <div class="row" id="btnProject">
+                <a href="{{ path('addPage') }}" class="btn btn-primary">Participer</a>
+            </div>
+        </div>
+
+        <div id="how" class="col-xs-12 col-md-6">
+            <h1 id="howTitle">Comment faire ?</h1>
+            <div class="row">
+                <div class="col col-xs-6">
+                    <img class="howImg" src="{{ asset('imgages/comment.png') }}" alt="logo"/>
+                    <p class="watch">Observez</p>
+                </div>
+                <div class="col col-xs-6">
+                    <img class="howImg" src="{{ asset('imgages/observer.png') }}" alt="logo"/>
+                    <p>Photographiez</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-xs-6">
+                    <img class="howImg" src="{{ asset('images/photographier.png') }}" alt="logo"/>
+                    <p>Partagez</p>
+                </div>
+                <div class="col col-xs-6">
+                    <img class="howImg" src="{{ asset('images/valider.png') }}" alt="logo"/>
+                    <p>Faites valider</p>
+                </div>
+            </div>
+            <div class="row bonus">
+                <p>Le projet vous intéresse ?</p>
+                <p>Pour en savoir plus, <a href="{{ path('howPage') }}">cliquez ici</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="last">
+
+        <h1 id="lastTitle">Dernières observations</h1>
+            {% if Observations == null %}
+                <p>Aucune observation n'a été publié. Soyez le premier : <a href="{{ path('addPage') }}">Participez</a> </p>
+            {% else %}
+            <div class="row">
+                {% for Observation in Observations %}
+                    <div class="col-md-4">
+                        {#We include observations template#}
+                        {% include 'NaoBundle::observations.html.twig' %}
+                    </div>
+                  {% endfor %}
+            </div>
+            {% endif %}
+
+    </div>
+{% endblock %}
