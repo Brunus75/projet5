@@ -1,6 +1,6 @@
 nao:
-    resource: "@NaoBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@NaoBundle/Controller"
+    type: annotation
 
 nao_membres:
     resource: "@NAOMembresBundle/Controller/"
