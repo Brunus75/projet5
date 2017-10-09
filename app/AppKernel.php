@@ -17,6 +17,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
+            new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new NAOVisiteursBundle\NAOVisiteursBundle(),
             new NAOMembresBundle\NAOMembresBundle(),
             new NaoBundle\NaoBundle(),

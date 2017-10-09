@@ -25,10 +25,10 @@
     </header>
     <nav>
         <ul>
-            <li><a href='{{ path('nao_accueil') }}'>Accueil</a></li>
-            <li><a href='{{ path('nao_association') }}'>L'association</a></li>
-            <li><a href='{{ path('nao_programme') }}'>Le programme</a></li>
-            <li><a href='{{ path('nao_recherche') }}'>Recherche d'oiseaux</a></li>
+            <li><a href='{{ path('homepage') }}'>Accueil</a></li>
+            <li><a href='{{ path('associationPage') }}'>L'association</a></li>
+            <li><a href='{{ path('recherchePage') }}'>Le programme</a></li>
+            <li><a href='{{ path('recherche_oiseau') }}'>Recherche d'oiseaux</a></li>
              {% if is_granted('ROLE_NATURALISTE')  %}
             <li><a href='{{ path('nao_observation') }}#myObs'>Mes observations</a></li>
             <li><a href='{{ path('nao_membres_index') }}'>Utilisateurs</a></li>

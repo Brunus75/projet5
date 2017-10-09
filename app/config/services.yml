@@ -14,3 +14,27 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
+    #service_name:
+        #    class: AppBundle\Directory\ClassName
+        #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+    nao.twig_extension:
+            class: NaoBundle\Twig\NaoExtension
+            public: false
+            tags:
+                - { name: twig.extension }
+
+    nao.notification:
+            class: NaoBundle\Services\Notification\Notification
+            arguments:
+                - "@mailer"
+                - "@twig"
+                - "@doctrine.orm.entity_manager"
+
+    nao.send_contact_mail:
+            class: NaoBundle\Services\ContactMail\ContactMail
+            arguments:
+                - "@mailer"
+                - "@twig"
+                - "@doctrine.orm.entity_manager"
+
