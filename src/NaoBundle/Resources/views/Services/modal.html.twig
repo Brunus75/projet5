@@ -1,0 +1,39 @@
+<div id="modal1" class="modal">
+    <button class="modal-close btn-flat" style="position:absolute;top:0;right:0;"><i class="material-icons">close</i></button>'
+    <div class="modal-content">
+
+    </div>
+
+    <div class="modal-footer">
+
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal2" class="modal">
+    <button class="modal-close btn-flat" style="position:absolute;top:0;right:0;"><i class="material-icons">close</i></button>'
+    {% block collapsible %}
+
+    {% endblock %}
+
+    <div class="modal-content">
+        {% block modalcontent %}
+
+        {% endblock %}
+    </div>
+
+
+
+</div>
+
+<div id="modal3" class="modal modal-fixed-footer">
+    <button class="modal-close btn-flat" style="position:absolute;top:0;right:0;"><i class="material-icons">close</i></button>'
+    <div class="modal-content">
+        {% block modal3content %}
+
+        {% endblock %}
+    </div>
+
+
+
+</div>

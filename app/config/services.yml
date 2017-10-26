@@ -4,19 +4,6 @@ parameters:
     #parameter_name: value
 
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        # automatically injects dependencies in your services
-        autowire: true
-        # automatically registers your services as commands, event subscribers, etc.
-        autoconfigure: true
-        # this means you cannot fetch services directly from the container via $container->get()
-        # if you need to do this, you can override this setting on individual services
-        public: false
-
-    #service_name:
-        #    class: AppBundle\Directory\ClassName
-        #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
 
     nao.twig_extension:
             class: NaoBundle\Twig\NaoExtension
@@ -38,3 +25,18 @@ services:
                 - "@twig"
                 - "@doctrine.orm.entity_manager"
 
+    nao_bundle.password_resetting:
+        class: NaoBundle\EventListener\PasswordResettingListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
+    nao_bundle.profile_edit:
+        class: NaoBundle\EventListener\ProfileEditListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
+    nao_bundle.change_password:
+        class: NaoBundle\EventListener\ChangePasswordListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }

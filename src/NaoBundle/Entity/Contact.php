@@ -13,7 +13,7 @@ class Contact
     /**
      * @var string
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank("message" => "Veuillez remplir le champ nom.")
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
@@ -27,7 +27,7 @@ class Contact
     /**
      * @var string
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank("message" => "Veuillez remplir le champ prénom.")
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
@@ -53,7 +53,7 @@ class Contact
     /**
      * @var string
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank("message" => "Veuillez inscrire un objet.")
      * @Assert\Length(
      *      min = 2,
      *      max = 50,
@@ -66,7 +66,7 @@ class Contact
     /**
      * @var string
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank("message" => "Veuillez inscrire un message.")
      * @Assert\Length(
      *      min = 5,
      *      max = 400,

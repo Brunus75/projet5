@@ -3,6 +3,8 @@
 namespace NaoBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * EspecesRepository
@@ -13,21 +15,32 @@ use Doctrine\ORM\EntityRepository;
 class EspecesRepository extends EntityRepository
 {
     /**
-     * @param string $bird
+     * @param string $Especes
      *
      * @return array
      */
-    public function findLike($bird)
+    public function findLike($oiseau)
     {
         return $this
             ->createQueryBuilder('a')
             ->where('a.nomVern LIKE :nomVern')
-            ->setParameter('nomVern', "%$bird%")
+            ->setParameter('nomVern', "%$oiseau%")
             ->orderBy('a.nomVern')
             ->setMaxResults(20)
             ->getQuery()
             ->execute()
             ;
+    }
+
+    public function trouver($Id)
+    {
+        return $this
+            ->createQueryBuilder('s')
+            ->where('s.nomVern LIKE :nomVern')
+            ->setParameter('nomVern', "%$Id%")
+            ->distinct('s.nomVern')
+            ->getQuery()
+            ->execute();
     }
 
     public function getLikeQueryBuilder($pattern)
@@ -79,7 +92,7 @@ class EspecesRepository extends EntityRepository
      * Méthode pour obtenir tous les oiseaux d'Especes
      * @return array
      */
-    public function getBirds()
+    public function getOiseaux()
     {
         $qb = $this->createQueryBuilder('s');
 
@@ -94,10 +107,11 @@ class EspecesRepository extends EntityRepository
 
     /**
      *
-     * @Méthode pour obtenir des oiseaux de l'espèce par familyparam $ family
+     * @Méthode pour obtenir des oiseaux de l'espèce par famille
+     * @param $family
      * @return array
      */
-    public function getBirdsByFamily($family)
+    public function getOiseauxDeFamille($family)
     {
         $qb = $this->createQueryBuilder('s');
 
@@ -117,7 +131,7 @@ class EspecesRepository extends EntityRepository
      * @param $order
      * @return array
      */
-    public function getFamilyByOrder($order)
+    public function getFamilleByOrdre($order)
     {
         $qb = $this->createQueryBuilder('s');
 
@@ -131,4 +145,23 @@ class EspecesRepository extends EntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+    /**
+     * Méthode pour obtenir le nombre d'Especes
+     *
+     * @return array
+     */
+    public function getNbEspeces()
+    {
+        try {
+            $query = $this->createQueryBuilder ('t')
+                ->select ('COUNT(t.cdNom)')
+                ->getQuery ()
+                ->getSingleScalarResult ();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+        return $query;
+    }
+
 }

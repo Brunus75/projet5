@@ -5,6 +5,7 @@ namespace NaoBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use NaoBundle\Entity\Observation;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ObservationRepository
@@ -19,7 +20,7 @@ class ObservationRepository extends EntityRepository
      * @param $userId
      * @return array
      */
-    public function findByIdUserWithEspeces($userId)
+    public function trouverIdUtilisateurAvecEspeces($userId)
     {
         $qb = $this->createQueryBuilder('o');
 
@@ -29,9 +30,9 @@ class ObservationRepository extends EntityRepository
             ->orderBy('o.date', 'desc')
             ->setMaxResults(9)
             ->setFirstResult(0)
-            ->leftJoin('o.bird', 's')
+            ->leftJoin('o.oiseau', 's')
             ->addSelect('s')
-            ->leftJoin('o.picture', 'p')
+            ->leftJoin('o.image', 'p')
             ->addSelect('p')
             ;
 
@@ -46,7 +47,7 @@ class ObservationRepository extends EntityRepository
      * @param $incre
      * @return array
      */
-    public function findMoreByIdUserWithEspeces($userId, $incre)
+    public function trouverToutEspecesIdUtilisateur($userId, $incre)
     {
         $qb = $this->createQueryBuilder('o');
 
@@ -56,9 +57,9 @@ class ObservationRepository extends EntityRepository
             ->orderBy('o.date', 'desc')
             ->setMaxResults(9)
             ->setFirstResult($incre*9)
-            ->leftJoin('o.bird', 's')
+            ->leftJoin('o.oiseau', 's')
             ->addSelect('s')
-            ->leftJoin('o.picture', 'p')
+            ->leftJoin('o.image', 'p')
             ->addSelect('p')
             ->leftJoin('o.user', 'u')
             ->addSelect('u');
@@ -69,18 +70,18 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
-     * Méthode pour obtenir les 3 dernières observations
+     * Méthode pour obtenir les 5 dernières observations
      * @return array
      */
-    public function findLastObservations(){
+    public function trouverDernierObservations(){
         $qd = $this->createQueryBuilder('o');
-        $statut = 'accepté';
+        $statut = 'accepte';
 
         $qd
             ->where('o.statut = :statut')
             ->setParameter('statut',$statut)
             ->orderBy('o.date', 'desc')
-            ->setMaxResults(3);
+            ->setMaxResults(5);
 
         return $qd
             ->getQuery()
@@ -90,8 +91,9 @@ class ObservationRepository extends EntityRepository
     /**
      * @param Observation $observation
      * @param bool $flush
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function add(Observation $observation, $flush = true)
+    public function ajouter(Observation $observation, $flush = true)
     {
 
         $this->getEntityManager()->persist($observation);
@@ -101,23 +103,23 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
-     * Méthode pour obtenir toutes les observations par espèce
-     * @param $birdId
+     * Méthode pour obtenir toutes les observations par espèces
+     * @param $oiseauId
      * @return array
      */
-    public function findWithBirdName($birdId, $statut){
+    public function trouverAvecNomOiseau($oiseauId, $statut){
         $qb = $this->createQueryBuilder('o');
 
-        $qb ->where('o.bird = :birdId')
-            ->setParameter('birdId', $birdId)
+        $qb ->where('o.oiseau = :oiseauId')
+            ->setParameter('oiseauId', $oiseauId)
             ->andWhere('o.statut = :statut')
             ->setParameter('statut', $statut)
             ->orderBy('o.date', 'desc')
-            ->leftJoin('o.bird', 's')
+            ->leftJoin('o.oiseau', 's')
             ->addSelect('s')
             ->leftJoin('o.user', 'u')
             ->addSelect('u')
-            ->leftJoin('o.picture', 'p')
+            ->leftJoin('o.image', 'p')
             ->addSelect('p')
         ;
 
@@ -129,12 +131,12 @@ class ObservationRepository extends EntityRepository
     /**
      * Méthode pour obtenir toutes les observations amateurs à valider
      * @param $page
-     * @return QueryBuilder
+     * @return array
      */
-    public function findObservationsToValidate($page){
+    public function trouverObservationsAValider($page){
         $qb = $this->createQueryBuilder('o');
 
-        $toValidate = "en attente";
+        $toValidate = "attente";
 
         $qb
             ->where('o.statut = :toValidate')
@@ -147,15 +149,36 @@ class ObservationRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
     /**
-     * Méthode pour connaître le nombre
+     * Méthode pour obtenir le nombre des observations
      * @return array
      */
-    public function howManyObservationsToValidate()
+    public function getNbObservations()
+    {
+        $qb = $this->createQueryBuilder('o');
+        $toValidate = "accepte";
+
+        $qb
+            ->select('COUNT(o.id)')
+            ->where('o.statut = :toValidate')
+            ->setParameter('toValidate', $toValidate)
+            ;
+  //          ->getQuery()
+  //          ->getSingleScalarResult();
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Méthode pour connaître le nombre d'observations à valider
+     * @return array
+     */
+    public function nombreObservationAValider()
     {
         $qb = $this->createQueryBuilder('o');
 
-        $toValidate = "en attente";
+        $toValidate = "attente";
 
         $qb
             ->where('o.statut = :toValidate')
@@ -166,10 +189,10 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
-     * Méthode pour obtenir toutes les observations amateurs à valider
+     * Méthode pour supprimer une observation
      * @param $observationId
      */
-    public function deleteAnObservation($observationId){
+    public function supprimerObservation($observationId){
         $qb = $this->createQueryBuilder('o');
         $qb
             ->delete()

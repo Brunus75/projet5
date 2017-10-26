@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "Roboto";
+    src: url('../font/Roboto/Roboto-Bold.ttf');
+}
+
+footer{
+    background-color: #fac572;
+    width: 100%;
+    padding:2%;
+    margin-bottom: 10%;
+}
+
+#logo{
+    position:absolute;
+    top:3%;
+    left:39%;
+    width:22%;
+}
+
+#toTop {
+    right: 8px;
+    bottom: 100px;
+    padding: 2px 2px 2px 2px;
+    font-size: 12px;
+}
+
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  
+}
+
+@media screen and (min-width: 800px){
+    #logo{
+        top:14%;
+        left:45%;
+        width: 8%;
+    }
+
+    #toTop {
+        right: 25px;
+        bottom: 25px;
+        padding: 10px 10px 10px 10px;
+        font-size: 30px;
+    }
+}

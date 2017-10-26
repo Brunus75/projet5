@@ -16,7 +16,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/association", name="nao_association")
+     * @Route("/associationN", name="nao_association")
      */
     public function associationAction()
     {
@@ -24,7 +24,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/programme", name="nao_programme")
+     * @Route("/programmeN", name="nao_programme")
      */
     public function programmeAction()
     {

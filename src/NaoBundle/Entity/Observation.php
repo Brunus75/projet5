@@ -4,6 +4,8 @@ namespace NaoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Observation
@@ -13,9 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Observation
 {
-    const STATUS_UNTREATED = 'en attente';
-    const STATUS_ACCEPTED = 'accepté';
-    const STATUS_REJECTED = 'rejeté';
+    const STATUS_UNTREATED = 'attente';
+    const STATUS_ACCEPTED = 'accepte';
+    const STATUS_REJECTED = 'rejet';
 
     /**
      * @var int
@@ -43,7 +45,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="statut", type="string", length=64, nullable=false, columnDefinition="ENUM('en attente', 'accepté', 'rejeté')", options={"default":"en attente"})
+     * @ORM\Column(name="statut", type="string", length=64, nullable=false, columnDefinition="ENUM('attente', 'accepte', 'rejet')", options={"default":"attente"})
      */
     private $statut;
 
@@ -54,7 +56,7 @@ class Observation
      * @ORM\JoinColumn(name="especes_id", referencedColumnName="id", nullable=false)
      * @Assert\NotBlank()
      */
-    private $bird;
+    private $oiseau;
 
 
 
@@ -63,6 +65,7 @@ class Observation
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      * @Assert\Type("string")
+     * @Assert\Length(max=500)
      */
     private $description;
 
@@ -76,7 +79,14 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="latitude", type="float")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "Veuillez renseigner ce champ")
+     * @Assert\Type(type="float", message="coordonnee invalide")
+     * @Assert\Range(
+     *      min = -90.0,
+     *      max = 90.0,
+     *      minMessage = "La latitude ne peut être inférieure à -90°",
+     *      maxMessage = "La latitude ne peu être supérieure à 90°"
+     * )
      */
     private $latitude;
 
@@ -84,7 +94,8 @@ class Observation
      * @var float
      *
      * @ORM\Column(name="longitude", type="float")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "Veuillez renseigner ce champ")
+     * @Assert\Type(type="float", message="coordonnée invalide")
      */
     private $longitude;
 
@@ -175,27 +186,27 @@ class Observation
     }
 
     /**
-     * Set bird
+     * Set oiseau
      *
-     * @param string $bird
+     * @param string $oiseau
      *
      * @return Observation
      */
-    public function setBird($bird)
+    public function setOiseau($oiseau)
     {
-        $this->bird = $bird;
+        $this->oiseau = $oiseau;
 
         return $this;
     }
 
     /**
-     * Get bird
+     * Get oiseau
      *
      * @return string
      */
-    public function getBird()
+    public function getOiseau()
     {
-        return $this->bird;
+        return $this->oiseau;
     }
 
     /**

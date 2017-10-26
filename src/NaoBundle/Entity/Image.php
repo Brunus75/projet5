@@ -5,12 +5,13 @@ namespace NaoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use NaoBundle\Eventviva\ImageResize;
 
 /**
  * Image
  *
  * @ORM\Table(name="image")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ImageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Image
@@ -64,13 +65,14 @@ class Image
         }
         // Le nom du fichier est son identifiant, il suffit de stocker son extension
         $this->ext = $this->file->guessExtension();
-        // Et nous générons l'attribut alt de la balise <img>, à la valeur du nom de fichier sur l de l'utilisateur
+        // Et nous générons l'attribut alt de la balise <image>, à la valeur du nom de fichier sur l de l'utilisateur
         $this->alt = $this->file->getClientOriginalName();
     }
 
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
+     * @throws \NaoBundle\Eventviva\ImageResizeException
      */
     public function upload()
     {
@@ -92,11 +94,18 @@ class Image
         $fileName = $this->id.'.'.$this->ext;
         if ($this->ext = 'png') {
             $image->save($this->getUploadDir() . '/' . $fileName, IMAGETYPE_PNG, 2);
-        } elseif ($this->ext = 'jpeg' || $this->ext = 'jpg' ) {
+        } elseif ($this->ext = ('jpeg' || $this->ext = 'jpg')) {
             $image->save($this->getUploadDir() . '/' . $fileName, IMAGETYPE_JPEG, 75);
         } elseif ($this->ext = 'gif') {
             $image->save($this->getUploadDir() . '/' . $fileName,IMAGETYPE_GIF, 50);
         }
+
+        /*
+        // Nous déplaçons le fichier envoyé dans le répertoire de notre choix
+        $this->file->move(
+            $this->getUploadRootDir(), // The destination directory
+            $this->id.'.'.$this->ext   // The name of the file to create, here "id.extension"
+        );*/
     }
 
     /**
@@ -121,7 +130,7 @@ class Image
     public function getUploadDir()
     {
         // Dans PostRemove, nous n'avons pas accès à l'identifiant, nous utilisons notre nom enregistré
-        return 'uploads/img';
+        return 'uploads/images';
     }
     protected function getUploadRootDir()
     {
@@ -203,6 +212,7 @@ class Image
             // Nous sauvegardons l'extension de fichier pour la supprimer plus tard
             $this->tempFilename = $this->ext;
         // Les valeurs des attributs url et alt sont réinitialisées            $this->ext = null;
+            $this->ext = null;
             $this->alt = null;
         }
     }

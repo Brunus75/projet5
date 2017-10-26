@@ -1,50 +1,92 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('style/style.css')}}"/>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+    {% include 'NaoBundle:Services:styles.html.twig' %}
+    {% block stylesheets %}{% endblock %}
 </head>
 <body>
-    <header>
-        <div>
-            <img id='logo' src='{{ asset('images/P5-Logo-01.png') }}' alt='logo NAO' />
-        </div>
-        <div>
-            {% block connexion %}
-                {% if is_granted('ROLE_USER')  %}
-                    <span>{{ app.user.username|upper }}</span> <a href='{{ url("fos_user_security_logout") }}'><img id='deconnexion' src='{{asset('images/power.png')}}'/></a>
-                {% else %}
-                    {{ render(url("fos_user_security_login_min")) }}
-                {% endif %}
-            {% endblock %}
-        </div>
-    </header>
-    <nav>
-        <ul>
-            <li><a href='{{ path('homepage') }}'>Accueil</a></li>
-            <li><a href='{{ path('associationPage') }}'>L'association</a></li>
-            <li><a href='{{ path('recherchePage') }}'>Le programme</a></li>
-            <li><a href='{{ path('recherche_oiseau') }}'>Recherche d'oiseaux</a></li>
-             {% if is_granted('ROLE_NATURALISTE')  %}
-            <li><a href='{{ path('nao_observation') }}#myObs'>Mes observations</a></li>
-            <li><a href='{{ path('nao_membres_index') }}'>Utilisateurs</a></li>
-             {% elseif is_granted('ROLE_ORNITHOLOGUE')  %}
-            <li><a href='{{ path('nao_observation') }}#valideObs'>Mes observations</a></li>
-             {% endif %}
-        </ul>
-    </nav>
-    <section>
-    {% block body %}{% endblock %}
-</section>
-<footer>
+<header>
+
+    {% include 'NaoBundle:Services:modal.html.twig' %}
+
+    {% include 'NaoBundle:Services:scripts.html.twig' %}
+
     <div>
-        footer
+        <img id='logo' src='{{ asset('images/P5-Logo-150px.png') }}' alt='logo NAO' />
     </div>
-</footer>
-{% block javascripts %}{% endblock %}
+    <div>
+        {% block connexion %}
+            {% if is_granted('ROLE_USER')  %}
+                <span>{{ app.user.username|upper }}</span> <a href='{{ url("fos_user_security_logout") }}'><img id='deconnexion' src='{{asset('images/power.png')}}'/></a>
+            {% else %}
+                {{ render(url("fos_user_security_login_min")) }}
+            {% endif %}
+        {% endblock %}
+    </div>
+</header>
+<nav>
+    <ul>
+        <li><a href='{{ path('homepage') }}'>Accueil</a></li>
+        <li><a href='{{ path('participerPage') }}'>Participer à une Observation</a></li>
+        <li><a href='{{ path('associationPage') }}'>L'association</a></li>
+        <li><a href='{{ path('programmePage') }}'>Le programme</a></li>
+        <li><a href='{{ path('recherchePage') }}'>Recherche d'oiseaux</a></li>
+        {% if is_granted('ROLE_NATURALISTE')  %}
+            <li><a href='{{ path('participerPage') }}#myObs'>Mes observations</a></li>
+            <li><a href='{{ path('nao_membres_index') }}'>Utilisateurs</a></li>
+        {% elseif is_granted('ROLE_ORNITHOLOGUE')  %}
+            <li><a href='{{ path('participerPage') }}#valideObs'>Mes observations</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="container containerBody">
+    {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}">
+                {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+
+    {% block body %}
+    {% endblock %}
+    <p>
+
+    <p>
+<!--        <a id="scroll-to-top" class="scroll-to" href="#"><i class="glyphicon glyphicon-chevron-up" ></i></a>  -->
+
+        <a href="#top" id="toTop"><i class="glyphicon glyphicon-chevron-up" ></i></a>
+    </p>
+
+
+</div>
+
+
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+
+    <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cookie-bar/1/cookiebar-latest.min.js?forceLang=fr&tracking=1"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>
+{% block javascripts %}
+{% endblock %}
+
+
 </body>
 </html>

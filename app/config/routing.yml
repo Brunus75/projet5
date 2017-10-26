@@ -1,4 +1,5 @@
 
+
 nao_membres:
     resource: "@NAOMembresBundle/Controller/"
     type:     annotation
@@ -8,10 +9,10 @@ nao_visiteurs:
     resource: "@NAOVisiteursBundle/Controller/"
     type:     annotation
     prefix:   /
-    
+
 nao:
     resource: "@NaoBundle/Controller"
-    type: annotation
+    type:     annotation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

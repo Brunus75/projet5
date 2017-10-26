@@ -1,0 +1,17 @@
+{% extends "NaoBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <div class="erreur_perso">
+        <h1>Oops! Une erreur s'est produite</h1>
+        <h2>Le serveur retourne un "{{ status_code }} {{ status_text }}".</h2>
+
+        <div id="textEssais">
+            Une erreur s'est produite. Vous pouvez nous contacter par e-mail à l'adresse nao@gmail.com et nous dire ce que vous faisiez au moment où l'erreur est survenue. Nous réparerons l'erreur le plus vite possible. Toutes nos excuses pour la gêne occasionnée.
+
+        </div>
+        <hr>
+        <a href="{{ path('homepage') }}"><p>Retour à l'accueil</p></a>
+    </div>
+
+{% endblock %}

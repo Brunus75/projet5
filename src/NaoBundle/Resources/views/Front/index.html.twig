@@ -1,9 +1,9 @@
-{% extends "NaoBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
 {% block title %}Accueil{% endblock %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/observations.css') }}">
 {% endblock %}
 
@@ -13,35 +13,16 @@
             <h1 id="projectTitle">Le projet</h1>
             <p>Projet d'une application participative aux passionnés d’ornithologie.</p>
             <div class="row" id="btnProject">
-                <a href="{{ path('addPage') }}" class="btn btn-primary">Participer</a>
+                <a href="{{ path('participerPage') }}" class="btn btn-primary">Participer</a>
             </div>
         </div>
 
         <div id="how" class="col-xs-12 col-md-6">
             <h1 id="howTitle">Comment faire ?</h1>
-            <div class="row">
-                <div class="col col-xs-6">
-                    <img class="howImg" src="{{ asset('imgages/comment.png') }}" alt="logo"/>
-                    <p class="watch">Observez</p>
-                </div>
-                <div class="col col-xs-6">
-                    <img class="howImg" src="{{ asset('imgages/observer.png') }}" alt="logo"/>
-                    <p>Photographiez</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-xs-6">
-                    <img class="howImg" src="{{ asset('images/photographier.png') }}" alt="logo"/>
-                    <p>Partagez</p>
-                </div>
-                <div class="col col-xs-6">
-                    <img class="howImg" src="{{ asset('images/valider.png') }}" alt="logo"/>
-                    <p>Faites valider</p>
-                </div>
-            </div>
+
             <div class="row bonus">
                 <p>Le projet vous intéresse ?</p>
-                <p>Pour en savoir plus, <a href="{{ path('howPage') }}">cliquez ici</a></p>
+                <p>Pour en savoir plus, <a href="{{ path('commentPage') }}">cliquez ici</a></p>
             </div>
         </div>
     </div>
@@ -49,7 +30,7 @@
 
         <h1 id="lastTitle">Dernières observations</h1>
             {% if Observations == null %}
-                <p>Aucune observation n'a été publié. Soyez le premier : <a href="{{ path('addPage') }}">Participez</a> </p>
+                <p>Aucune observation n'a été publié. Soyez le premier : <a href="{{ path('participerPage') }}">Participez</a> </p>
             {% else %}
             <div class="row">
                 {% for Observation in Observations %}
