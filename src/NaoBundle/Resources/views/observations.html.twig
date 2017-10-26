@@ -1,9 +1,6 @@
     <div class="col-md-4 col-xs-12 observationContainer" id="observation-{{ Observation.id }}">
         <div class="row layer">
             <div class="sheet">
-                <div class="col-xs-4">
-                    <img  class="profilePicture" src="{{ Observation.user.gravatarPicture }}" alt="profilePicture"/>
-                </div>
                 <div class="col-xs-8">
                     <p class="user">{{ Observation.user }}</p>
                     {% if Observation.user.roles == ['ROLE_ORNITHOLOGUE', 'ROLE_USER'] %}
@@ -12,27 +9,27 @@
                         <p class="role">Administrateur</p>
                     {% else %}
                         <p class="role">Utilisateur</p>
-                        <p class="role">{% if Observation.statut == "en attente" %}En attente{% else %}Publié{% endif %}</p>
+                        <p class="role">{% if Observation.statut == "attente" %}En attente{% else %}Publié{% endif %}</p>
 
                     {% endif %}
                 </div>
             </div>
             <div class="row contain">
                 <div class="col-xs-6">
-                    <p class="link"><a href="{{ Observation.bird.url }}">Lien fiche INPN</a></p>
+                    <p class="link"><a href="{{ Observation.oiseau.url }}">Lien fiche INPN</a></p>
                     {% if Observation.image is not null %}
                     <a href="{{ asset(Observation.image.webPath) }}" class="thumbnail" target="_blank" title="Ouvrir l'image dans un nouvel onglet">
-                    <img class="imgObservation"
+                    <img class="imageObservation"
                          src="{{ asset(Observation.image.webPath) }}"
                          alt="{{ Observation.image.alt }}"
                     />
                     </a>
                     {% elseif Observation.image is null %}
-                        <img  class="imgObservation" src="{{ asset('images/P5-Logo-150px.png') }}" alt="no-picture"/>
+                        <img  class="imageObservation" src="{{ asset('images/P5-Logo-150px.png') }}" alt="no-picture"/>
                     {% endif %}
                 </div>
                 <div class="col-xs-6">
-                    <p class="nameBird">{{ Observation.bird.nomVern }}<br>
+                    <p class="nameOiseau">{{ Observation.oiseau.nomVern }}<br>
                         <span class="date">le {{ Observation.date|date('d/m/Y') }}</span></p>
                     <p class="lat">Latitude : {{ Observation.latitude }}</p>
                     <p class="lon">Longitude : {{ Observation.longitude }}</p>

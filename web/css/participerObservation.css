@@ -1,0 +1,141 @@
+body{
+    background-color: #c5ccd0;
+}
+form{
+    margin-top:5%;
+}
+
+input[type="text"].form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: "RobotoB", Arial, serif;
+    color:#4D67FF;
+}
+
+input[type="text"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: "RobotoB", Arial, serif;
+    color:#4D67FF;
+}
+input[type="text"]::-moz-placeholder { /* Firefox 19+ */
+    font-family: "RobotoB", Arial, serif;
+    color:#4D67FF;
+}
+input[type="text"]:-ms-input-placeholder{ /* IE 10+ */
+    font-family: "RobotoB", Arial, serif;
+    color:#4D67FF;
+}
+input[type="text"]:-moz-placeholder { /* Firefox 18- */
+    font-family: "RobotoB", Arial, serif;;
+    color:#4D67FF;
+}
+
+input[type="text"], input[type="date"], input[type="time"] {
+    background-color: #c5ccd0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #4D67FF;
+    margin-bottom: 20px;
+    font-family: "RobotoB", Arial, serif;;
+    color: #4d67ff;
+
+}
+
+label{
+    font-family: "RobotoB", Arial, serif;;
+    color:#1C5F83;
+}
+
+textarea.form-control {
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: none;
+    border: 4px solid #7EBEA5;
+    font-family: "RobotoB", Arial, serif;;
+    color: #3c5fff;
+    background-color: #d6f0f3;
+}
+
+
+.select2-container .select2-choice>.select2-chosen{
+    background-color: #e7b3f3;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: "RobotoB", Arial, serif;
+    color: #1C5F83;
+    border-bottom: 2px solid #e7b3f3;
+}
+#submitButton{
+    text-align: center;
+    margin:2% 0 30% 0;
+}
+#submitButton button{
+    padding: 3%;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    width: 130px;
+    height: 130px;
+    text-decoration:none;
+    border-style: hidden;
+    background: #d6f0f3 url('../images/prendrePhoto.png') no-repeat;
+    margin-bottom: 20px;
+}
+
+.btn-file:hover{
+    background-color: #d6f0f3;
+}
+
+input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+.btnSubmit{
+    background-color: #e7b3f3;
+    border-color: #e7b3f3;
+    color: #ffffff;
+    font-family: "RobotoB", Arial, serif;
+}
+
+#getfilename{
+    margin-bottom: 30px;
+    text-align: center;
+    font-family: "RobotoB", Arial, serif;
+    color: #3c5fff;
+}
+@media screen and (min-width: 800px){
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+        width: 130px;
+        height: 130px;
+        text-decoration:none;
+        border-style: hidden;
+        background: #d6f0f3 url('../images/importer-une-photo.png') no-repeat;
+    }
+    .btn-file:hover{
+        background-color: #d6f0f3;
+    }
+
+    #description{
+        margin-top: -25px;
+    }
+
+    #getfilename{
+        margin-bottom: 30px;
+        text-align: center;
+        font-family: "RobotoB", Arial, serif;
+        color: #3c5fff;
+    }
+}

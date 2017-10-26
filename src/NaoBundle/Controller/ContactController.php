@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class ContactController extends Controller
 {
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="contactPage")
      * @Method({"GET","POST"})
      */
     public function contactAction(Request $request)
@@ -25,10 +25,10 @@ class ContactController extends Controller
             $this->get('nao.send_contact_mail')->sendContactMail($contact);
             $this->get('nao.send_contact_mail')->sendContactMailToSender($contact);
             $this->addFlash('info', 'Votre message a bien été envoyé, nous répondrons dès que possible à votre demande.');
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('contactPage');
         }
 
-        return $this->render(':Contact:contact.html.twig', array(
+        return $this->render('NaoBundle:Contact:contact.html.twig', array(
             'form' => $form->createView()
         ));
     }

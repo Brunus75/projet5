@@ -1,0 +1,4 @@
+[{% for oiseau in oiseaux -%}
+    {{ {id: oiseau.id, text: oiseau.__toString}|json_encode|raw }}
+      {% if not loop.last %},{% endif %}
+    {% endfor %}]

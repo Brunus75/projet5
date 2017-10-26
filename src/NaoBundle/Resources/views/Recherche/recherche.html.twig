@@ -1,0 +1,89 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Carte interactive{% endblock %}
+
+    {% block stylesheet %}
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+              integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+              crossorigin=""/>
+        <link rel="stylesheet" href="{{ asset('css/recherche.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/participerObservation.css') }}"/>
+    {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-8">
+            <h1 id="titleFormSearch">Formulaire de recherche</h1>
+            <h2 id="subTitleFormSearch">Choisissez une espèce</h2>
+        </div>
+        <div class="col-xs-4">
+            <img id="oiseau" src="{{ asset('images/oiseau.jpg') }}" alt="oiseau">
+        </div>
+    </div>
+    <form method="get" onsubmit="return false">
+        <label for="ordres">Ordre</label>
+        <select class="form-control" id="ordres" >
+            <option disabled selected value>Sélectionnez un ordre</option>
+            {% for ordre in ordres %}
+                <option value="{{ ordre.ordre }}">{{ ordre.ordre }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="familles">Famille</label>
+        <select class="form-control" id="familles">
+            <option selected value="">Sélectionnez une famille</option>
+            {% for famille in familles %}
+                <option value="{{ famille.famille }}">{{ famille.famille }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label>Oiseau</label>
+        <label for="oiseauField"></label><input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off">
+        <datalist id="oiseaux">
+            {% set oiseauxNom = [] %}
+            {% for oiseau in oiseaux %}
+                {% if oiseau.nomVern in oiseauxNom %}
+                {% else %}
+                    {% if oiseau.nomVern != "" %}
+                        {% set oiseauxNom = oiseauxNom|merge([oiseau.nomVern]) %}
+                        <option class="oiseauOption" value="{{ oiseau.nomVern }}" id="{{ oiseau.id }}">
+                        <input id="getUrl-{{ oiseau.id }}" type="hidden" value="{{ oiseau.url }}"/>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </datalist>
+    </form>
+    <div id="searchButtonDiv">
+        <button id="searchButton" class="btn btn-info">Rechercher</button>
+    </div>
+    <div id="mapContainer">
+        <div>
+            <button id="clearMap" class="btn btn-default">Réinitialiser la carte</button>
+        </div>
+        {% if app.user %}
+            <input type="hidden" id="isLogged" value="true">
+        {% else %}
+            <div class="alert alert-info">Merci de vous connecter pour obtebir une géolocalisation précise.</div>
+        {% endif %}
+        <div class="row">
+            <div id="colMap">
+                <div class="col-md-7" id="mapid"></div>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+            crossorigin=""></script>
+
+    <script src="{{ asset('js/js-md5/js/md5.min.js') }}"></script>
+    <script src="{{ asset('js/recherche.js') }}"></script>
+
+    <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
+
+{% endblock %}

@@ -14,8 +14,6 @@ class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
     public function resize(){
 
-
     }
-
 
 }
