@@ -44,7 +44,7 @@ class ObservationType extends AbstractType
             ->add('description', TextareaType::class, array(
                 'label' => 'Description',
                 'required' => false,
-                'invalid_message' => 'Champ obligatoire, 500 caractères max.'
+                'invalid_message' => 'Champ obligatoire, 250 caractères max.'
 
             ))
 
@@ -65,6 +65,11 @@ class ObservationType extends AbstractType
                 'invalid_message' => 'Caractères numériques uniquement',
             ))
 
+            ->add('ville', TextareaType::class, array(
+                'label' => 'Ville',
+                'required' => false,
+                'invalid_message' => 'Champ obligatoire,  caractères 30 max.'
+            ))
 
             ->add('save', SubmitType::class, array(
                 'label' => 'Enregistrer',
