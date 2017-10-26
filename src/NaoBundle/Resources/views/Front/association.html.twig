@@ -1,0 +1,76 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Association{% endblock %}
+
+    {% block stylesheet %}
+        <link rel="stylesheet" href="{{ asset('css/association.css') }}"/>
+    {% endblock %}
+
+{% block body %}
+
+
+    <div id="presentation">
+        <div class="row">
+
+            <div class="col-xs-12 col-md-12">
+                <h1 id="titleAssociation">L'association Nos amis les oiseaux</h1>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <img id="oiseaux" src="{{ asset('images/oiseau.jpg') }}" alt="oiseaux" class="img-responsive center-block">
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+                <h1 id="titlePresentation">Nous connaître ?</h1>
+                <p>« nos amis les oiseaux » est une association ornithologique fondée par m. michel dujardin. ......<br>
+                    </p>
+            </div>
+            <div class="col-xs-8 col-md-4">
+                <h1 id="titlepresentation">Notre contribution à l'Ornithologie?</h1>
+                <p>notre association souhaite .......</p>
+            </div>
+            <div class="col-xs-4 col-md-2">
+                <img id="ornithologue" src="{{ asset('images/ornithologue.png') }}" alt="ornithologue" class="img-responsive center-block">
+            </div>
+
+        </div>
+    </div>
+    <div id="form">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div>
+                    {{ form_widget(form.name) }}
+                    {{ form_errors(form.name) }}
+                </div>
+                <div>
+                    {{ form_widget(form.firstname) }}
+                    {{ form_errors(form.firstname) }}
+                </div>
+                <div>
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+                <div>
+                    {{ form_widget(form.object) }}
+                    {{ form_errors(form.object) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div>
+                    {{ form_row(form.message) }}
+                    {{ form_errors(form.message) }}
+                    {# Render CSRF token etc .#}
+                    <div style="display:none">
+                        {{ form_rest(form) }}
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Envoyer">
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <br>
+    <br>
+
+{% endblock %}

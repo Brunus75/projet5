@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ Observation.oiseau.nomVern }}{% endblock %}
+
+{% block stylesheet %}
+    <meta property="og:email"           content="{{ User.email }}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{ Observation.oiseau.nomVern }} par {{ Observation.user.username }}" />
+    <meta property="og:description"   content="Nouvelle observation sur Nos Amis les Oiseaux ! Un {{ Observation.oiseau.nomVern }} a été observé par {{ Observation.user.username }} aux coordonnées suivantes : {{ Observation.latitude }}, {{ Observation.longitude }}" />
+    <meta property="og:image"         content="{{ Observation.image }}" />
+    <link rel="stylesheet" href="{{ asset('css/observations.css') }}">
+    <style rel="stylesheet">
+        body{
+            background-color: #f3d6a8;
+        }
+        @media screen and (min-width: 800px) {
+            .observationContainer {
+                margin-left:  35%;
+            }
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    {% include 'NaoBundle::observations.html.twig' %}
+{% endblock %}
