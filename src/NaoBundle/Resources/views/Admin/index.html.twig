@@ -1,0 +1,55 @@
+{% extends '::base.html.twig'%}
+
+{% block title %}Administration{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('css/indexAdmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/participerObservation.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ORNITHOLOGUE') %}
+        <h1 id="observationToValidateTitle">Observations à valider</h1>
+        <p>Il y a <span id="howMany">{{ nombreObservationAValider }} observation{% if nombreObservationAValider > 1 %}s{% endif %}</span> en attente de validation.</p>
+        <hr>
+    {% endif %}
+    <div id="infos">
+        <h1 id="welcomeMsg">Bonjour {{ NAOMembres.user.username }}</h1>
+
+        <h2 id="subInfos">{{ NAOMembres.user.email }} - {% if is_granted('ROLE_ADMINISTRATEUR') %}Administrateur{% elseif is_granted('ROLE_ORNOTHOLOGUE') %}Ornithologue{% else %}Utilisateur{% endif %}</h2>
+        {% if is_granted('ROLE_ORNITHOLOGUE') and NAOMembres.user.anabled == 0 %}
+            <div id="toConfirm" class="alert alert-warning">Veuillez faire confirmer votre compte naturaliste en envoyant un justificatif (ex : contrat de travail) à <a href="mailto:contact@nao5.fr">contact@nao.fr</a>.
+            <br>En attente de confirmation, vous pouvez utiliser votre compte pour faire des observations. Mais vous ne pouvez pas valider les observations des profils particuliers.</div>
+        {% endif %}
+        <p><a href="{{ path('fos_user_profile_edit') }}">Changer mes informations personnelles</a></p>
+        <p><a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></p>
+        {% if is_granted('ROLE_ORNITHOLOGUE') and NAOMembres.user.enable == 1 %}
+            <p><a href="{{ path('adminValiderObservationPage', {'page' : 1})  }}">Valider une observation</a></p>
+        {% endif %}
+        {% if is_granted('ROLE_ADMINISTRATEUR') %}
+            <p><a href="{{ path('adminValiderComptePage') }}">Valider un compte Ornithologue</a></p>
+        {% endif %}
+        <p><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
+    </div>
+    <hr>
+    <h1 id="myMsg">Mes observations</h1>
+    {% if Observations == null %}
+        <p>Vous n'avez fait aucune observation.</p>
+    {% else %}
+        {% set months = [] %}
+        <div class="row">
+        {% for Observation in Observations %}
+            {#We include observations template#}
+            {% include 'NaoBundle::observations.html.twig' %}
+        {% endfor %}
+        </div>
+    {% endif %}
+    <div id="moreObservation">
+        {#<button class="btn btn-default">Observations plus anciennes</button>#}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/js-md5/js/md5.min.js') }}"></script>
+    <script src="{{ asset('js/adminIndex.js') }}"></script>
+{% endblock %}

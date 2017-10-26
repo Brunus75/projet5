@@ -1,0 +1,79 @@
+{% extends '::base.html.twig'%}
+
+{% block title %}Valider une observation{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('css/validerObservation.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path('adminPage') }}" class="btn btn-default return">retour à l'interface d'administration</a>
+    <h1 id="title"><strong>liste des observations à valider</strong></h1>
+    {% if observationsavalider == null %}
+        <p>il n'y a aucune observation à valider.</p>
+    {% else %}
+        <hr>
+        <form method="get" onsubmit="return false">
+            <label>filtre par espèce</label>
+            <input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off">
+            <datalist id="oiseaux">
+                {% set oiseauxnom = [] %}
+                {% for oiseau in oiseaux %}
+                    {% if oiseau.nomvern in oiseauxnom %}
+                    {% else %}
+                        {% if oiseau.nomvern != "" %}
+                            {% set oiseauxnom = oiseauxnom|merge([oiseau.nomVern]) %}
+                                <option class="oiseauOption" value="{{ oiseau.nomVern }}" id="{{ bird.id }}">
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </datalist>
+            <button class="btn btn-info" id="searchButton">Rechercher</button>
+            <button id="clear" class="btn btn-warning">Toutes les observations</button>
+        </form><br>
+        <hr>
+        <div id="results">
+            {% for observationAValider in observationsAValider %}
+                <p>"{{ observationAValider.user.username }}" a observé <strong>"{{ observationAValider.oiseau.nomVern }}"</strong> le {{ observationAValider.date|date('d/m/Y') }} aux coordonnées suivantes : <a title="Cliquez pour accéder à la carte" href="{{ path('RechercheGpsCoordonnees', {'lat':observationAValider.latitude, 'lon':observationAValider.longitude}) }}">{{ observationAValider.latitude }}, {{ observationAValider.longitude }}</a></p>
+                <p class="link"><a href="{{ observationAValider.oiseau.url }}">Lien vers la fiche INPN</a></p>
+                {% if observationAValider.image is not null %}
+                <a href="{{ asset(observationAValider.image.webPath) }}" class="thumbnail" target="_blank" title="Ouvrir l'image dans un nouvel onglet">
+                    <img class="imageObservation" src="{{ asset(observationAValider.image.webPath) }}" alt="{{ observationAValider.image.alt }}"/>
+                </a>
+                {% else %}
+                    <p class="imgMsg">L'utilisateur n'a pas pris de photo de l'espèce observée.</p>
+                {% endif %}
+                 <p class="description">
+                    {% if observationAValider.description is not null %}
+                        Description donnée : <em>{{ observationAValider.description }}</em>
+                    {% else %}
+                        L'utilisateur n'a pas donné de description pour l'espèce observée.
+                    {% endif %}
+                 </p>
+                {% set page = app.request.requestUri|split('/') %}
+                <form method="post" action="{{ path('confirmeObservation', {'page':page[page|length-1],'observationId':observationAValider.id}) }}">
+                    <input type="submit" class="btn btn-primary accept" value="Valider et Publier">
+                </form>
+                <form method="post" action="{{ path('refuseObservation', {'page':page[page|length-1],'observationId':observationAValider.id}) }}">
+                    <input type="submit" class="btn btn-danger refuse" value="Supprimer">
+                </form>
+                <hr>
+            {% endfor %}
+        </div>
+        <nav>
+            <ul class="pagination">
+                {% for i in 1..nbPages %}
+                    {% set page = app.request.requestUri|split('/') %}
+                    {% if page[page|length-1] == i %}
+                        <li class="page-item active"><a class="page-link" href="{{ path('adminValiderObservationPage', {'page' : i})  }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{ path('adminValiderObservationPage', {'page' : i})  }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/validerObservation.js') }}"></script>
+{% endblock %}

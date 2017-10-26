@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% endblock %}
+</head>
+
+<body>
+
+<div class="entetemail" style="background-color: #222; padding-left: 20px; padding-top: 25px; padding-bottom: 30px; margin-bottom: 30px;">
+    <h1 style="color:lightgray; font-size: 2em;">NAO</h1>
+</div>
+
+
+<div class="contenumail" style="margin-left: 30px; margin-top: 30px; margin-right: 30px;">
+
+    <h2 style="color:darkgreen; padding-top: 50px;">Bonjour</h2>
+    <p>Une nouvelle observation a été postée et est en attente de validation.</p>
+    <p>Date d'observation :  {{ observation.date|date('d/m/Y') }}.</p>
+    <p>Auteur : {{ observation.p5_fos_user.username }} </p>
+    <p>Espèce : {{ observation.especes.ordre }}</p>
+    <p>Famille : {{ observation.especes.famille }} </p>
+    <p>Commentaire : {{ observation.description }}</p>
+
+</div>
+
+
+{% block footer %}
+
+    <footer id="footer" style="background-color: #222; padding: 20px; margin-top: 30px; text-align: center">
+        <p style="color:lightgrey">Association NAO |
+            <a href="http://nao.kaim.fr" target="_blank">Accueil</a> |
+        </p>
+    </footer>
+
+{% endblock %}
+
+
+</body>
+</html>

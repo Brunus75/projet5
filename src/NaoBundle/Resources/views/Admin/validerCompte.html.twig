@@ -1,0 +1,44 @@
+{% extends '::base.html.twig'%}
+
+{% block title %}Valider un compte naturaliste{% endblock %}
+
+{% block stylesheet %}<link rel="stylesheet" href="{{ asset('css/validerCompte.css') }}" {% endblock %}
+
+{% block body %}
+    <a href="{{ path('adminPage') }}" class="btn btn-default return">Retour à l'interface d'administration</a>
+    {% if listUsers == null %}
+        <p>Vous n'avez plus de nouvelles inscriptions d'ornithologues à valider</p>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>Nom d'utilisateur</td>
+                        <td>Adresse email</td>
+                        <td>Confirmer compte utilisateur</td>
+                        <td>Refuser compte ornithologue</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for listUser in listUsers %}
+                        <tr>
+                            <td>{{ listUser.username }}</td>
+                            <td>{{ listUser.email }}</td>
+                            <td>
+                                <form action="{{ path('confirmeCompte', {'userId' : listUser.id}) }}" method="post">
+                                    <button class="btn btn-info">Valider</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ path('refuseCompte', {'userId' : listUser.id}) }}" method="post">
+                                    <button class="btn btn-danger">Refuser</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}
