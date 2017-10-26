@@ -41,8 +41,9 @@ class RechercheOiseauController extends Controller
      * @Method("GET")
      */
    public function getOiseauAction($id = null)
-    {   $em = $this->getDoctrine()->getManager();
-        if (null === $oiseau = $em->getRepository('NaoBundle:Especes')->find($id)) ;
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (null === $oiseau = $em->getRepository('NaoBundle:Especes')->find($id))
         {
             throw $this->createNotFoundException();
         }
@@ -113,7 +114,7 @@ class RechercheOiseauController extends Controller
     public function trouverOiseauxAvecObservationAccepte(Especes $especes)
     {
         $em = $this->getDoctrine()->getManager();
-        $observations = $em->getRepository('NaoBundle:Observation')->trouverAvecNomOiseau($especes->getId(), 'rejet');
+        $observations = $em->getRepository('NaoBundle:Observation')->trouverAvecNomOiseau($especes->getId(), 'accepte');
         if ($observations == null){
             $response = new JsonResponse([], 422);
         }else{
@@ -123,7 +124,7 @@ class RechercheOiseauController extends Controller
     }
 
     /**
-     * @param especes $especes
+     * @param Especes $especes
      * @return \Symfony\Component\HttpFoundation\Response $response
      * Que faisons nous si nous voulons trouver des observations en attente en connaissant l'oiseau
      * @Route("/recherche/oiseau/attente/{id}", requirements={"id" : "\d+"}, methods={"POST", "GET"}, name="rechercheAvecOiseauEnattente")

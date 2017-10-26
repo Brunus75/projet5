@@ -4,8 +4,7 @@ namespace NaoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * Observation
@@ -15,9 +14,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Observation
 {
-    const STATUS_UNTREATED = 'attente';
-    const STATUS_ACCEPTED = 'accepte';
-    const STATUS_REJECTED = 'rejet';
+    const STATUS_ATTENTE = 'attente';
+    const STATUS_ACCEPTE = 'accepte';
+    const STATUS_REJET = 'rejet';
 
     /**
      * @var int
@@ -49,7 +48,6 @@ class Observation
      */
     private $statut;
 
-
     /**
      *
      * @ORM\ManyToOne(targetEntity="NaoBundle\Entity\Especes", cascade={"persist"})
@@ -58,14 +56,12 @@ class Observation
      */
     private $oiseau;
 
-
-
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      * @Assert\Type("string")
-     * @Assert\Length(max=500)
+     * @Assert\Length(max=250)
      */
     private $description;
 
@@ -88,6 +84,7 @@ class Observation
      *      maxMessage = "La latitude ne peu être supérieure à 90°"
      * )
      */
+    
     private $latitude;
 
     /**
@@ -104,7 +101,7 @@ class Observation
      *
      * @ORM\Column(name="ville", type="text", nullable=false)
      * @Assert\Type("string")
-     * @Assert\Length(max=500)
+     * @Assert\Length(max=50)
      */
     private $ville;
 

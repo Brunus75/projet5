@@ -40,12 +40,13 @@ class RechercheController extends Controller
         $familles = $em->getRepository('NaoBundle:Especes')->getFamille();
         $oiseaux = $em->getRepository('NaoBundle:Especes')->getOiseaux();
 
-        return $this->render('NaoBundle:Recherche:recherche.html.twig', [
+        return $this->render('NaoBundle:Recherche:recherche.html.twig', array (
             'user'=>$user,
             'ordres'=>$ordres,
             'familles'=>$familles,
             'oiseaux'=>$oiseaux
-        ]);
+        )
+        );
     }
 
     /**

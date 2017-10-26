@@ -11,7 +11,7 @@ use NaoBundle\Eventviva\ImageResize;
  * Image
  *
  * @ORM\Table(name="image")
- * @ORM\Entity(repositoryClass="ImageRepository")
+ * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
 class Image
@@ -46,7 +46,7 @@ class Image
      * @Assert\Valid()
      * @Assert\File(
      *     mimeTypes={ "image/jpeg", "image/jpg", "image/png", "image/gif" },
-     *     mimeTypesMessage = "This file is not a valid image."
+     *     mimeTypesMessage = "Ce fichier n'est pas une image valide."
      * )
      */
     private $file;
@@ -211,7 +211,7 @@ class Image
         if (null !== $this->ext) {
             // Nous sauvegardons l'extension de fichier pour la supprimer plus tard
             $this->tempFilename = $this->ext;
-        // Les valeurs des attributs url et alt sont réinitialisées            $this->ext = null;
+        // Les valeurs des attributs url et alt sont réinitialisées
             $this->ext = null;
             $this->alt = null;
         }
