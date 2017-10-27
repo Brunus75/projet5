@@ -49,7 +49,7 @@ class ObservationController extends Controller
         $form = $this->createForm(ObservationType::class, $observation, ['method'=>'PUT']);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()){
-            $this->getDoctrine ()->getRepository ('NaoBundle:Observation')->ajouter ($observation);
+            $this->getDoctrine ()->getRepository ('NaoBundle:Observation')->ajouter($observation);
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($user);

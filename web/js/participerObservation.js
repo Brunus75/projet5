@@ -1,22 +1,21 @@
-/*Auto-complétion des espèces sur la nouvelle observation (c'est la caractéristique principale) */
+/*Auto-complétion des espèces sur la nouvelle observation */
 (function () {
     var options = {
         url_list: $('#url-list').attr('href'),
         url_get: $('#url-get').attr('href'),
         otherOptions: {
-            minimumInputLength: 1,
+            minimumInputLength: 3,
             theme: 'boostrap',
             formatNoMatches: 'aucune référence trouvée.',
             formatSearching: 'Recherche ...',
-            formatInputTooShort: 'Entrez au moins un caractère pour avoir des suggestions'
+            formatInputTooShort: 'Entrez au moins un caractère'
         }
     };
 
     $('#observation_oiseau').autocompleter(options);
 
 
-});
-
+}());
 /*
 {{ form_row(form.categories) }}
 

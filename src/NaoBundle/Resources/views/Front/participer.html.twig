@@ -18,9 +18,9 @@
         {{ form_row(form.image) }}
     </label>
 
-    <div id="getfilename">La photo choisie est : <span id="filename">(aucune)</span></div>
+    <div id="getfilename">La photo a télécharger est : <span id="filename">(aucune)</span></div>
+
     <div class="col-md-6 col-xs-12">
-         <div id="observation_oiseau">
         {{ form_row(form.oiseau) }}
         <div class="row">
             <div class="col col-xs-6">
@@ -117,14 +117,8 @@
         }
     </script>
 
-    {{ parent() }}
-
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
     <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-select2.js') }}"></script>
-
-
-    <script src="{{ asset('js/participer.js') }}"></script>
+    <script src="{{ asset('js/participerObservation.js') }}"></script>
 
     <script src="{{ asset('js/jquery.buttonLoader.min.js') }}"></script>
     <script src="{{ asset('js/loader.js') }}"></script>

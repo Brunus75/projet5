@@ -76,13 +76,17 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
+    <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-select2.js') }}"></script>
+    <script src="{{ asset('js/recherche.js') }}"></script>
+    
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
             integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
             crossorigin=""></script>
 
     <script src="{{ asset('js/js-md5/js/md5.min.js') }}"></script>
-    <script src="{{ asset('js/recherche.js') }}"></script>
+
 
     <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
 

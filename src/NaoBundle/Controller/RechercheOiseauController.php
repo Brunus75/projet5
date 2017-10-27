@@ -33,7 +33,7 @@ class RechercheOiseauController extends Controller
         $q = $request->query->get('q', $request->query->get('term', ''));
         $oiseaux = $this->getDoctrine()->getRepository('NaoBundle:Especes')->findLike($q);
         $results = array_unique($oiseaux);
-        return $this->render('NaoBundle:Recherche:rechercheoiseau.json.twig', ['oiseaux' => $results]);
+        return $this->render('NaoBundle:Recherche:rechercheOiseau.json.twig', ['oiseaux' => $results]);
     }
 
     /**

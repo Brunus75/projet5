@@ -35,13 +35,12 @@ class MainController extends Controller
         $lastObservations= $em ->getRepository('NaoBundle:Observation')->trouverDernierObservations();
 
 
-     //   $userRepository = $em->getRepository('NaoMembresBundle:User'); ou NaoBundle:User
-     //   $naturalisteCount = $userRepository->getUsersCountByRole ("ROLE_NATURALISTE");
         $observationCount = $em->getRepository('NaoBundle:Observation')->getNbObservations();
         $especeCount = $em->getRepository('NaoBundle:Especes')->getNbEspeces();
 
         return $this->render('NaoBundle:Front:index.html.twig', [
             'Observations'      => $lastObservations,
+
         ]);
     }
 
