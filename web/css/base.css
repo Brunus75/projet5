@@ -13,7 +13,7 @@ footer{
 #logo{
     position:absolute;
     top:3%;
-    left:39%;
+    left:50%;
     width:22%;
 }
 
@@ -32,7 +32,7 @@ footer{
 @media screen and (min-width: 800px){
     #logo{
         top:14%;
-        left:45%;
+        left:50%;
         width: 8%;
     }
 

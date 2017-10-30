@@ -59,7 +59,7 @@
             }).fail(function(jqXHR, exception){
                 var msg = '';
                 if (jqXHR.status === 404) {
-                    msg = 'Espèce non présente dans le référentiel TAXREF de l\'INPN.';
+                    msg = 'Espèce non présente dans le fichier de l\'INPN. (Base TAXREF)';
                 } else if (jqXHR.status === 500) {
                     msg = 'Internal Server Error [500].';
                 } else if (jqXHR.status === 422) {

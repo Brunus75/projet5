@@ -1,0 +1,108 @@
+@font-face {
+    font-family: "Roboto";
+    src: url('../font/roboto/Roboto-Regular.ttf')
+}
+body{
+    background-color: #d6f0f3;
+}
+select{
+    margin-bottom: 2%;
+}
+hr{
+    border: 2px #fac572 solid;
+}
+label{
+    font-family: "Roboto", Arial, serif;
+}
+#titleFormSearch{
+    font-family: "Roboto", Arial, serif;
+    font-size: 1.8em;
+    color: #4d67ff;
+}
+#subTitleFormSearch{
+    font-family: "Roboto", Arial, serif;
+    font-size: 1em;
+    margin-bottom: 15%;
+    color: #3c5fff;
+}
+#mapid{
+    height: 400px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    z-index:10;
+}
+#clearMap{
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    font-family: "Roboto", Arial, serif;
+}
+#searchButton {
+    margin-top: 1%;
+    background-color: #fac572;
+    border-color: #fac572;
+    padding: 3% 2% 3% 2%;
+    font-family: "Roboto", Arial, serif;
+}
+
+#searchButtonDiv{
+    text-align: center;
+    margin: 5% 0 15% 0;
+}
+#oiseau{
+    width: 200%;
+    margin-left: -70%;
+}
+#mapContainer{
+    background-color: #f28b4a;
+    margin: 0 -15px -22px -17px;
+    padding:8%;
+}
+#oiseauField{
+    margin-bottom: 3%;
+}
+.alert-success_lat, .alert-success_lon{
+    display: none;
+}
+#colMap #observation{
+    width: 270px;
+    margin: 1%;
+}
+
+@media screen and (min-width: 800px){
+    #oiseau{
+        width:100%;
+        margin-left: -5%;
+        position: absolute;
+    }
+    #subTitleFormSearch{
+        margin-bottom:5%;
+    }
+    #searchButtonDiv{
+        text-align: left;
+        margin-bottom: 5%;
+        margin-top: 0;
+    }
+    #searchButton{
+        padding: 1% 1% 1% 1%;
+    }
+    #mapContainer{
+        margin: 0 -40px -10px -110px;
+        -moz-margin-end: -42px;
+        padding-top: 2%;
+    }
+    #mapid{
+        height: 437px;
+        margin-right: 3%;
+        -moz-margin-start: 41px;
+    }
+    #clearMap{
+        width: 49%;
+    }
+    #oiseauField{
+        margin-bottom: 1%;
+    }
+    .form-control{
+        width:50%;
+    }
+}

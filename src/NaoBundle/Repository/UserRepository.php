@@ -32,7 +32,7 @@ class UserRepository extends EntityRepository
             ->andWhere('u.roles = :roles')
             ->setParameters([
                 'enable'=> false,
-                'roles'=> 'a:1:{i:0;s:8:"ROLE_ORNITHOLOGUE";}'
+                'roles'=> 'a:1:{i:0;s:12:"ORNITHOLOGUE";}'
             ]);
 
         return $qb
@@ -103,23 +103,31 @@ class UserRepository extends EntityRepository
     public function getUsersCount()
     {
 
-            return $this->createQueryBuilder('u')
-                ->select('count(u.id)')
-                ->getQuery()
-                ->getSingleScalarResult();
+        try {
+            return $this->createQueryBuilder ('u')
+                ->select ('count(u.id)')
+                ->getQuery ()
+                ->getSingleScalarResult ();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
 
-     }
+    }
 
 
     public function getUsersCountParRole($role)
     {
 
-            return $this->createQueryBuilder('u')
-                ->andWhere('u.roles LIKE :roles')
-                ->setParameter('roles','%'.$role.'%')
-                ->select('count(u.id)')
-                ->getQuery()
-                ->getSingleScalarResult();
+        try {
+            return $this->createQueryBuilder ('u')
+                ->andWhere ('u.roles LIKE :roles')
+                ->setParameter ('roles', '%'.$role.'%')
+                ->select ('count(u.id)')
+                ->getQuery ()
+                ->getSingleScalarResult ();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
 
     }
 

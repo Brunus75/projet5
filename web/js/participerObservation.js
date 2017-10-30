@@ -8,7 +8,7 @@
             theme: 'boostrap',
             formatNoMatches: 'aucune référence trouvée.',
             formatSearching: 'Recherche ...',
-            formatInputTooShort: 'Entrez au moins un caractère'
+            formatInputTooShort: 'Entrez au moins trois caractère'
         }
     };
 

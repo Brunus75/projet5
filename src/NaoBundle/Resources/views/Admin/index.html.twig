@@ -14,16 +14,16 @@
         <hr>
     {% endif %}
     <div id="infos">
-        <h1 id="welcomeMsg">Bonjour {{ NAOMembres.user.username }}</h1>
+        <h1 id="welcomeMsg">Bonjour {{ app.user.username }}</h1>
 
-        <h2 id="subInfos">{{ NAOMembres.user.email }} - {% if is_granted('ROLE_ADMINISTRATEUR') %}Administrateur{% elseif is_granted('ROLE_ORNOTHOLOGUE') %}Ornithologue{% else %}Utilisateur{% endif %}</h2>
-        {% if is_granted('ROLE_ORNITHOLOGUE') and NAOMembres.user.anabled == 0 %}
-            <div id="toConfirm" class="alert alert-warning">Veuillez faire confirmer votre compte naturaliste en envoyant un justificatif (ex : contrat de travail) à <a href="mailto:contact@nao5.fr">contact@nao.fr</a>.
-            <br>En attente de confirmation, vous pouvez utiliser votre compte pour faire des observations. Mais vous ne pouvez pas valider les observations des profils particuliers.</div>
+        <h2 id="subInfos">{{ app.user.email }} - {% if is_granted('ROLE_ADMINISTRATEUR') %}Administrateur{% elseif is_granted('ROLE_ORNOTHOLOGUE') %}Ornithologue{% else %}Utilisateur{% endif %}</h2>
+        {% if is_granted('ROLE_ORNITHOLOGUE') and app.user.enabled == false %}
+            <div id="toConfirm" class="alert alert-warning">Merci de nous transmettre une copie de votre titre d'Ornithologue à <a href="mailto:contact@nao5.fr">contact@nao.fr</a>.
+            <br>Dans l'attente de votre document, vous pouvez déposer des observations.</div>
         {% endif %}
-        <p><a href="{{ path('fos_user_profile_edit') }}">Changer mes informations personnelles</a></p>
-        <p><a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></p>
-        {% if is_granted('ROLE_ORNITHOLOGUE') and NAOMembres.user.enable == 1 %}
+        <p><a href="{{ path('fos_user_profile_edit') }}">Modifier mes informations personnelles</a></p>
+        <p><a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a></p>
+        {% if is_granted('ROLE_ORNITHOLOGUE') and app.user.enable == true %}
             <p><a href="{{ path('adminValiderObservationPage', {'page' : 1})  }}">Valider une observation</a></p>
         {% endif %}
         {% if is_granted('ROLE_ADMINISTRATEUR') %}

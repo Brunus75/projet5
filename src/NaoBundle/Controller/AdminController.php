@@ -23,7 +23,7 @@ class AdminController extends Controller
         $user = $this->getUser();
 
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException('Vous devez être inscrit!');
+            throw $this->createAccessDeniedException('Merci de vous inscrire');
         }
 
         $em = $this->getDoctrine()->getManager();
