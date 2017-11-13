@@ -3,32 +3,26 @@
 {% block title %}Administration{% endblock %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{{ asset('css/indexAdmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminIndex.css') }}">
     <link rel="stylesheet" href="{{ asset('css/participerObservation.css') }}">
 {% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_ORNITHOLOGUE') %}
+
         <h1 id="observationToValidateTitle">Observations à valider</h1>
         <p>Il y a <span id="howMany">{{ nombreObservationAValider }} observation{% if nombreObservationAValider > 1 %}s{% endif %}</span> en attente de validation.</p>
         <hr>
-    {% endif %}
+
     <div id="infos">
         <h1 id="welcomeMsg">Bonjour {{ app.user.username }}</h1>
 
-        <h2 id="subInfos">{{ app.user.email }} - {% if is_granted('ROLE_ADMINISTRATEUR') %}Administrateur{% elseif is_granted('ROLE_ORNOTHOLOGUE') %}Ornithologue{% else %}Utilisateur{% endif %}</h2>
-        {% if is_granted('ROLE_ORNITHOLOGUE') and app.user.enabled == false %}
-            <div id="toConfirm" class="alert alert-warning">Merci de nous transmettre une copie de votre titre d'Ornithologue à <a href="mailto:contact@nao5.fr">contact@nao.fr</a>.
-            <br>Dans l'attente de votre document, vous pouvez déposer des observations.</div>
-        {% endif %}
+
         <p><a href="{{ path('fos_user_profile_edit') }}">Modifier mes informations personnelles</a></p>
         <p><a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a></p>
-        {% if is_granted('ROLE_ORNITHOLOGUE') and app.user.enable == true %}
+
             <p><a href="{{ path('adminValiderObservationPage', {'page' : 1})  }}">Valider une observation</a></p>
-        {% endif %}
-        {% if is_granted('ROLE_ADMINISTRATEUR') %}
-            <p><a href="{{ path('adminValiderComptePage') }}">Valider un compte Ornithologue</a></p>
-        {% endif %}
+
+
         <p><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
     </div>
     <hr>
@@ -52,4 +46,11 @@
 {% block javascripts %}
     <script src="{{ asset('js/js-md5/js/md5.min.js') }}"></script>
     <script src="{{ asset('js/adminIndex.js') }}"></script>
+
+    <script>
+
+        var plusObservationsPage = "{{ path('moreObservationsPage') }}"
+
+    </script>
+
 {% endblock %}

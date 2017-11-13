@@ -1,0 +1,95 @@
+@font-face {
+    font-family: "Roboto";
+    src: url('../font/Roboto/Roboto-Bold.ttf');
+}
+body {
+    background-color: #F3D6A8;
+}
+hr{
+    border: 2px #C5A077 solid;
+}
+form label{
+    font-family: "ComfortaaR", Arial;
+    color:#387392;
+}
+#welcomeMsg, #myMsg, #observationToValidateTitle{
+    font-family: "ComfortaaB", Arial;
+    font-size: 1.6em;
+}
+#howMany{
+    color: #7EBEA5;
+    font-family: "ComfortaaB", Arial;
+}
+#subInfos{
+    font-family: "ComfortaaR", Arial;
+    font-size: 1.2em;
+}
+#infos p, #myMsg p{
+    margin: 10% 0 3% 0;
+    font-size: 1.1em;
+    font-family: "ComfortaaR", Arial;
+}
+#infos a:hover{
+    text-decoration: none;
+}
+
+#modificationInfos, #changePassword{
+    margin: 10% 0 10% 0;
+}
+#btnModification input, #changePasswordBtn input{
+    background-color: #387392;
+    border-color: #387392;
+    color:white;
+    font-family: "ComfortaaB", Arial;
+}
+#modificationTitle, #changePasswordTitle{
+    font-family: "ComfortaaB", Arial;
+    font-size: 1.3em;
+    margin-bottom: 10%;
+}
+#moreObservation button{
+    background-color: #387392;
+    border-color: #387392;
+    color:white;
+    font-family: "ComfortaaB", Arial;
+    padding:2%;
+    width: 50%;
+}
+#moreObservation{
+    text-align: center;
+    margin-bottom: 10%;
+}
+#errorMsg{
+    margin-left: 5%;
+    width: 90%;
+}
+.return{
+    background-color: #477E68;
+    border-color: #387392;
+    color:white;
+    font-family: "ComfortaaB", Arial;
+}
+.month{
+    font-family: "ComfortaaR", Arial;
+    font-size: 1.1em;
+    margin-top: 15%;
+}
+
+@media screen and (min-width: 800px){
+    #infos p{
+        margin-top: 3%;
+    }
+    .month{
+        margin-top: 5%;
+    }
+    #modificationInfos, #changePassword{
+        margin: 4% 4% 4% 4%;
+    }
+    #modificationTitle, #changePasswordTitle{
+        margin-bottom: 2%;
+        font-size: 1.8em;
+    }
+    #toConfirm{
+        width:60%;
+    }
+}

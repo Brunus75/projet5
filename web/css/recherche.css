@@ -26,6 +26,7 @@ label{
     color: #3c5fff;
 }
 #mapid{
+/*   Width: 80%;    */
     height: 400px;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -44,14 +45,13 @@ label{
     padding: 3% 2% 3% 2%;
     font-family: "Roboto", Arial, serif;
 }
-
 #searchButtonDiv{
     text-align: center;
     margin: 5% 0 15% 0;
 }
 #oiseau{
     width: 100%;
-    margin-left: -30%;
+    margin-left: 70%;
 }
 #mapContainer{
     background-color: #f28b4a;
@@ -71,8 +71,9 @@ label{
 
 @media screen and (min-width: 800px){
     #oiseau{
-        width:100%;
-        margin-left: -5%;
+        width: 30%;
+        margin-  : 5%;
+        margin-left: 70%;
         position: absolute;
     }
     #subTitleFormSearch{

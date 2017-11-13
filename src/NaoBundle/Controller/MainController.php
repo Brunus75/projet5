@@ -2,15 +2,7 @@
 
 namespace NaoBundle\Controller;
 
-use NaoBundle\Entity\Observation;
-use NaoBundle\Entity\Especes;
-use NAOMembresBundle\Entity\User;
-//use NAOMembresBundle\Repository\UserRepository;
-use NaoBundle\Repository\ObservationRepository;
-use Doctrine\ORM\EntityRepository;
-use NaoBundle\Form\ObservationType;
-use NAOMembresBundle\NAOMembresBundle;
-use NAOVisiteursBundle\NAOVisiteursBundle;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;

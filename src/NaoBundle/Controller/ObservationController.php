@@ -2,12 +2,8 @@
 
 namespace NaoBundle\Controller;
 
-use Doctrine\ORM\OptimisticLockException;
+
 use NaoBundle\Entity\Observation;
-use NaoBundle\Entity\Especes;
-use NAOMembresBundle\Entity\User;
-use NaoBundle\Repository\ObservationRepository;
-use Doctrine\ORM\EntityRepository;
 use NaoBundle\Form\ObservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -40,7 +36,7 @@ class ObservationController extends Controller
         $observation->setUser($user);
 
         // Octroyer l'état de l'observation selon ROLE
-        if ($this->isGranted('ROLE_ADMININSTRATEUR') || ($this->isGranted('ROLE_ORNITHOLOGUE') && $user->getIsAccredit())) {
+        if ($this->isGranted('ROLE_ADMININSTRATEUR') || ($this->isGranted('ROLE_ORNITHOLOGUE') && $user->getEnable())) {
             $observation->setStatut('accepte');
         } else {
             $observation->setStatut('attente');

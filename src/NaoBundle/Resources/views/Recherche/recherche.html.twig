@@ -1,4 +1,3 @@
-{% extends "::base.html.twig" %}
 
 {% block title %}Carte interactive{% endblock %}
 
@@ -6,15 +5,19 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
               integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
               crossorigin=""/>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.2.0/dist/MarkerCluster.css" />
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.2.0/dist/MarkerCluster.Default.css" />
         <link rel="stylesheet" href="{{ asset('css/recherche.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('css/participerObservation.css') }}"/>
+
     {% endblock %}
 
 {% block body %}
+
+
     <div class="row">
         <div class="col-xs-8">
-            <h1 id="titleFormSearch">Formulaire de recherche</h1>
-            <h2 id="subTitleFormSearch">Choisissez une espèce</h2>
+            <h1 id="titleFormSearch">Recherche</h1>
+            <h2 id="subTitleFormSearch"> par espèces d'oiseau</h2>
         </div>
         <div class="col-xs-4">
             <img id="oiseau" src="{{ asset('images/oiseau.jpg') }}" alt="oiseau">
@@ -37,8 +40,8 @@
             {% endfor %}
         </select><br>
 
-        <label>Oiseau</label>
-        <label for="oiseauField"></label><input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off">
+        <label>Nom d'oiseau</label>
+        <input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off" value="Saisir 3 caractères minimum" >
         <datalist id="oiseaux">
             {% set oiseauxNom = [] %}
             {% for oiseau in oiseaux %}
@@ -54,8 +57,13 @@
         </datalist>
     </form>
     <div id="searchButtonDiv">
-        <button id="searchButton" class="btn btn-info">Rechercher</button>
+        <button id="searchButton" class="btn btn-info">Je recherche</button>
     </div>
+
+    {% if NbObservationsAvecNomOiseauAccepte is defined %} <h2 id="observationValideEspece">Nombre d'observations effectuées: </h2>
+        <p>Il y a <span id="howMany">{{ NbObservationsAvecNomOiseauAccepte }} observation{% if NbObservationsAvecNomOiseauAccepte > 1 %}s{% endif %}</span> validées.</p>
+        <hr>{% endif %}
+
     <div id="mapContainer">
         <div>
             <button id="clearMap" class="btn btn-default">Réinitialiser la carte</button>
@@ -63,7 +71,7 @@
         {% if app.user %}
             <input type="hidden" id="isLogged" value="true">
         {% else %}
-            <div class="alert alert-info">Merci de vous connecter pour obtebir une géolocalisation précise.</div>
+            <div class="alert alert-info">Merci de vous connecter pour obtenir une géolocalisation précise.</div>
         {% endif %}
         <div class="row">
             <div id="colMap">
@@ -73,21 +81,67 @@
         <hr>
     </div>
 
+
 {% endblock %}
 
 {% block javascripts %}
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
     <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-select2.js') }}"></script>
-    <script src="{{ asset('js/recherche.js') }}"></script>
+
+    <script>
+        var rechercheOrdre =  "{{ path('rechercheAvecOrdre') }}";
+        var rechercheFamille =  "{{ path('rechercheAvecFamille') }}";
+        var rechercherOiseau = "{{ path('rechercheAvecOiseauAccepte') }}"
+    </script>
+
+   <script>
+
+        var lat = document.getElementById("observation_latitude");
+        var lon = document.getElementById("observation_longitude");
+
+ /*       function geoGPS(){if (empty($_POST["observation_latitude"]))
+        {
+            showError()
+            } else {
+            showCoordinates()
+            }
+        }
+
+        function showCoordinates(value) {
+            lat.value =  value.latitude;
+            lon.value =  value.longitude;
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert ("L'utilisateur a refusé la demande de géolocalisation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert ("L'information de géolocalisation n'est pas disponible.");
+                    break;
+                case error.TIMEOUT:
+                    alert ("La demande pour obtenir la géolocalisation a expiré");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert ("Une erreur est survenue.");
+                    break;
+            }
+        }
+
+        geoGPS();
+*/
+    </script>
     
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
             integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
             crossorigin=""></script>
+    <script src='https://unpkg.com/leaflet.markercluster@1.2.0/dist/leaflet.markercluster.js'>  </script>
 
     <script src="{{ asset('js/js-md5/js/md5.min.js') }}"></script>
-
-
     <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
+
+    <script src="{{ asset('js/recherche.js') }}"></script>
 
 {% endblock %}

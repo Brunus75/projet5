@@ -1,4 +1,5 @@
 (function(){
+
     var $oiseauField = $('#oiseauField');
 
     //fonction pour effacer
@@ -17,16 +18,21 @@
         var $endval = $val.attr('id');
         //Appelez ajax
         var submit = function(){
-            var $oiseauFieldUrl = '/recherche/oiseau/attente/'+$endval;
+//            var $oiseauFieldUrl = '/recherche/oiseau/attente/'+$endval;
             return $.ajax({
-                url: $oiseauFieldUrl,
-                method: 'GET'
+//                url: $oiseauFieldUrl,
+                method: 'POST',
+                url : rechercherOiseauAValider,
+                data : {'oiseauField' : $endval}
+
             }).done(function(response){
                 $('#errorMsg').remove();
                 $('#results').empty();
                 $.each(response.observations, function(key, value){
                     var date = new Date(value.date.date);
                     date = (date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear());
+
+
                     //obtenir la description
                     var $description = "";
                     if (value.description !== null){

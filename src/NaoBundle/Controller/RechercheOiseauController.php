@@ -3,11 +3,7 @@
 namespace NaoBundle\Controller;
 
 
-use NaoBundle\Entity\Observation;
-use NaoBundle\Entity\Especes;
-use NaoMembresBundle\Entity\User;
-use NaoBundle\Form\ObservationType;
-use Doctrine\ORM\EntityManager;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -67,16 +63,18 @@ class RechercheOiseauController extends Controller
 */
 
     /**
-     * @param Especes $especes
+     *
      * @return \Symfony\Component\HttpFoundation\Response $response
      * Que faisons nous si nous voulons rechercher un oiseau en connaissant la famille
-     * @Route("/recherche/family/{family}", methods={"GET"}, name="rechercheAvecFamille")
-     * @ParamConverter("especes", options={"mapping": {"family": "famille"}})
+     * @Route("/recherche/family", methods={"POST", "GET"}, name="rechercheAvecFamille")
+     *
      */
-    public function rechercheAvecFamille(Especes $especes)
+    public function rechercheAvecFamille(Request $request)
     {
+        $family = $request -> get ('family');
+
         $em = $this->getDoctrine()->getManager();
-        $oiseaux = $em->getRepository('NaoBundle:Especes')->getOiseauxDeFamille($especes->getFamille());
+        $oiseaux = $em->getRepository('NaoBundle:Especes')->getOiseauxDeFamille($family);
         if ($oiseaux == null){
             $response = new JsonResponse([], 422);
         }else{
@@ -86,16 +84,18 @@ class RechercheOiseauController extends Controller
     }
 
     /**
-     * @param Especes $especes
+     *
      * @return \Symfony\Component\HttpFoundation\Response $response
      * Que faisons nous si nous voulons rechercher une famille en connaissant l'ordre
-     * @Route("/recherche/order/{order}", methods={"GET"}, name="rechercheAvecOrdre")
-     * @ParamConverter("especes", options={"mapping": {"order": "ordre"}})
+     * @Route("/recherche/order", methods={"POST", "GET"}, name="rechercheAvecOrdre")
+     *
      */
-    public function rechercheAvecOrdre(Especes $especes)
+    public function rechercheAvecOrdre(Request $request)
     {
+        $order = $request -> get ('order');
+
         $em = $this->getDoctrine()->getManager();
-        $families = $em->getRepository('NaoBundle:Especes')->getFamilleByOrdre($especes->getOrdre());
+        $families = $em->getRepository('NaoBundle:Especes')->getFamilleByOrdre($order);
         if ($families == null){
             $response = new JsonResponse([], 422);
         }else{
@@ -105,52 +105,66 @@ class RechercheOiseauController extends Controller
     }
 
     /**
-     * @param Especes $especes
-     * @return \Symfony\Component\HttpFoundation\Response $response
-     * Que faisons nous si nous voulons trouver des observations acceptées en connaissant l'oiseau
-     * @Route("/recherche/oiseau/accepte/{id}", requirements={"id" : "\d+"}, methods={"POST", "GET"}, name="rechercheAvecOiseau")
-     * @ParamConverter("observations", options={"mapping": {"id": "especes_id"}})
-     */
-    public function trouverOiseauxAvecObservationAccepte(Especes $especes)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $observations = $em->getRepository('NaoBundle:Observation')->trouverAvecNomOiseau($especes->getId(), 'accepte');
-        if ($observations == null){
-            $response = new JsonResponse([], 422);
-        }else{
-            $response = new JsonResponse(['observations'=>$observations], 200);
-        }
-        return $response;
-    }
-
-    /**
-     * @param Especes $especes
-     * @return \Symfony\Component\HttpFoundation\Response $response
-     * Que faisons nous si nous voulons trouver des observations en attente en connaissant l'oiseau
-     * @Route("/recherche/oiseau/attente/{id}", requirements={"id" : "\d+"}, methods={"POST", "GET"}, name="rechercheAvecOiseauEnattente")
-     * @ParamConverter("observations", options={"mapping": {"id": "especes_id"}})
-     */
-    public function trouverOiseauxAvecObservationsEnattente(especes $especes)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $observations = $em->getRepository('NaoBundle:Observation')->trouverAvecNomOiseau($especes->getId(), 'attente');
-        if ($observations == null){
-            $response = new JsonResponse([], 422);
-        }else{
-            $response = new JsonResponse(['observations'=>$observations], 200);
-        }
-        return $response;
-    }
-
-    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response $response
-     * Que faisons-nous si nous voulons obtenir tout d'observations de l'utilisateur
-     * @Route("/admin/more/{incre}", requirements={"incre" : "\d+"}, methods={"POST", "GET"}, name="moreObservationsPage")
+     * Que faisons nous si nous voulons trouver des observations acceptées en connaissant l'oiseau
+     * @Route("/recherche/oiseau/accepte", methods={"POST", "GET"}, name="rechercheAvecOiseauAccepte")
+     */
+
+    public function trouverOiseauxAvecObservationAccepte(Request $request)
+    {
+        $oiseauField = $request -> get ('oiseauField');
+
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository('NaoBundle:Observation')->trouverAvecNomOiseauAccepte ($oiseauField);
+
+
+//        $observationCount = $em->getRepository('NaoBundle:Observation')->getNbObservationsAvecNomOiseauAccepte($oiseauField);
+//        $NbObservationsAvecNomOiseauAccepte = count($observationCount);
+
+        if ($observations == null){
+            $response = new JsonResponse([], 422);
+        }else{
+            $response = new JsonResponse(['observations' => $observations], 200);
+        }
+        return $response;
+
+    }
+
+
+    /**
+     *
+     * @return \Symfony\Component\HttpFoundation\Response $response
+     * Que faisons nous si nous voulons trouver des observations en attente en connaissant l'oiseau
+     * @Route("/recherche/oiseau/attente", methods={"POST", "GET"}, name="rechercheAvecOiseauEnAttente")
+     *
+     */
+    public function trouverOiseauxAvecObservationsEnAttente(Request $request)
+    {
+        $oiseauField = $request -> get ('oiseauField');
+
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository('NaoBundle:Observation')->trouverAvecNomOiseauAttente ($oiseauField);
+
+        if ($observations == null){
+            $response = new JsonResponse([], 422);
+        }else{
+            $response = new JsonResponse(['observations'=>$observations], 200);
+        }
+        return $response;
+    }
+
+    /**
+     *
+     *  @return \Symfony\Component\HttpFoundation\Response $response
+     * Que faisons-nous si nous voulons obtenir tout les observations de l'utilisateur
+     * @Route("/admin/more", methods={"POST", "GET"}, name="moreObservationsPage")
+     *
      */
     public function trouverToutObservationsUtilisateur(Request $request)
     {
         $incre = $request->get('incre');
+
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository('NaoBundle:Observation')->trouverToutEspecesIdUtilisateur($user->getId(), $incre);

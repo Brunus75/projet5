@@ -129,6 +129,63 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
+     * Méthode pour obtenir toutes les observations par espèces Accepte
+     * @param $oiseauId
+     * @return array
+     */
+    public function trouverAvecNomOiseauAccepte($oiseauField){
+        $qb = $this->createQueryBuilder('o');
+
+        $toValidate = "accepte";
+
+        $qb ->where('o.oiseau = :especes_id')
+            ->setParameter('especes_id', $oiseauField)
+            ->andWhere('o.statut = :toValidate')
+            ->setParameter('toValidate', $toValidate)
+            ->orderBy('o.date', 'desc')
+            ->leftJoin('o.oiseau', 's')
+            ->addSelect('s')
+            ->leftJoin('o.user', 'u')
+            ->addSelect('u')
+            ->leftJoin('o.image', 'p')
+            ->addSelect('p')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getArrayResult ();
+    }
+
+    /**
+     * Méthode pour obtenir toutes les observations par espèces Attente
+     * @param $oiseauId
+     * @return array
+     */
+    public function trouverAvecNomOiseauAttente($oiseauField){
+        $qb = $this->createQueryBuilder('o');
+
+        $toValidate = "attente";
+
+        $qb ->where('o.oiseau = :especes_id')
+            ->setParameter('especes_id', $oiseauField)
+            ->andWhere('o.statut = :toValidate')
+            ->setParameter('toValidate', $toValidate)
+            ->orderBy('o.date', 'desc')
+            ->leftJoin('o.oiseau', 's')
+            ->addSelect('s')
+            ->leftJoin('o.user', 'u')
+            ->addSelect('u')
+            ->leftJoin('o.image', 'p')
+            ->addSelect('p')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getArrayResult ();
+    }
+
+
+    /**
      * Méthode pour obtenir toutes les observations amateurs à valider
      * @param $page
      * @return array
@@ -169,6 +226,27 @@ class ObservationRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * Méthode pour obtenir le nombbre de toutes les observations par espèces Accepte
+     * @param $oiseauId
+     * @return array
+     */
+    public function getNbObservationsAvecNomOiseauAccepte($oiseauField){
+        $qb = $this->createQueryBuilder('o');
+
+        $toValidate = "accepte";
+
+        $qb ->select('COUNT(o.id)')
+            ->where('o.oiseau = :especes_id')
+            ->setParameter('especes_id', $oiseauField)
+            ->andWhere('o.statut = :toValidate')
+            ->setParameter('toValidate', $toValidate)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
 
     /**
      * Méthode pour connaître le nombre d'observations à valider

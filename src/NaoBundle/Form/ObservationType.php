@@ -57,12 +57,20 @@ class ObservationType extends AbstractType
             ->add('latitude', NumberType::class, array(
                 'label' => 'Latitude',
                 'invalid_message' => 'Caractères numériques uniquement',
+                'scale' => 10,
+                'attr' => array(
+                    'onchange' => 'codeLatLng()'
+                )
             ))
 
 
             ->add('longitude', NumberType::class, array(
                 'label' => 'Longitude',
                 'invalid_message' => 'Caractères numériques uniquement',
+                'scale' => 10,
+                'attr' => array(
+                    'onchange' => 'codeLatLng()'
+                )
             ))
 
             ->add('ville', TextareaType::class, array(

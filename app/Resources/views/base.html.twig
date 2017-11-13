@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.css" rel="stylesheet">
     <link href="//cdn.rawgit.com/t0m/select2-bootstrap-css/bootstrap3/select2-bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/recherche.css') }}"/>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
-    <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
-
     {% block stylesheets %}{% endblock %}
 </head>
+
 <body>
 <header>
 
@@ -32,7 +30,6 @@
         {% endblock %}
     </div>
 </header>
-
 <div class="container containerBody">
     {% for key, messages in app.session.flashbag.all() %}
         {% for message in messages %}
@@ -48,22 +45,20 @@
     {% block body %}
     {% endblock %}
     <p>
-
-    <p>
-<!--        <a id="scroll-to-top" class="scroll-to" href="#"><i class="glyphicon glyphicon-chevron-up" ></i></a>  -->
-
         <a href="#top" id="toTop"><i class="glyphicon glyphicon-chevron-up" ></i></a>
     </p>
-</div>
 
+</div>
 <footer>
-    <nav>
+    <div class="container">
+     <nav>
         <ul>
             <li><a href='{{ path('homepage') }}'>Accueil</a></li>
             <li><a href='{{ path('participerPage') }}'>Participer à une Observation</a></li>
             <li><a href='{{ path('associationPage') }}'>L'association</a></li>
             <li><a href='{{ path('programmePage') }}'>Le programme</a></li>
             <li><a href='{{ path('recherchePage') }}'>Recherche d'oiseaux</a></li>
+            <li><a href='{{ path('adminPage') }}'>Ma page d'administration</a></li>
             {% if is_granted('ROLE_NATURALISTE')  %}
                 <li><a href='{{ path('participerPage') }}#myObs'>Mes observations</a></li>
                 <li><a href='{{ path('nao_membres_index') }}'>Utilisateurs</a></li>
@@ -71,24 +66,18 @@
                 <li><a href='{{ path('participerPage') }}#valideObs'>Mes observations</a></li>
             {% endif %}
         </ul>
-    </nav>
+     </nav>
+    </div>
 </footer>
 
 
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-
-    <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
-
-
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>
 
-    <script type="text/javascript" src="//cdn.jsdelivr.net/cookie-bar/1/cookiebar-latest.min.js?forceLang=fr&tracking=1"></script>
+    <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
 {% block javascripts %}
 {% endblock %}
-
 
 </body>
 </html>

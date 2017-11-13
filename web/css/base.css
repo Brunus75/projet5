@@ -26,10 +26,14 @@ footer{
 
 
 @media screen and (min-width: 480px) and (max-width: 768px) {
-  
+
 }
 
 @media screen and (min-width: 800px){
+    footer{
+        margin-bottom: 0;
+    }
+
     #logo{
         top:14%;
         left:50%;
@@ -41,5 +45,10 @@ footer{
         bottom: 25px;
         padding: 10px 10px 10px 10px;
         font-size: 30px;
+    }
+
+    .homepage{
+        margin-left: -3%;
+        margin-right: 3%;
     }
 }

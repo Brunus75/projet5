@@ -2,12 +2,8 @@
 
 namespace NaoBundle\Controller;
 
-use NaoBundle\Entity\Observation;
-use NaoBundle\Entity\Especes;
-use NAOMembresBundle\Entity\User;
-use NaoBundle\Repository\ObservationRepository;
-use Doctrine\ORM\EntityRepository;
-use NaoBundle\Form\ObservationType;
+
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +22,7 @@ class RechercheController extends Controller
      * Ce que l'on peut faire sur la page recherche
      * @route("/recherche", name="recherchePage")
      * @param Request $request
+     * @param $oiseauField
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function rechercheAction(Request $request)
@@ -36,18 +33,28 @@ class RechercheController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
+
         $ordres = $em->getRepository('NaoBundle:Especes')->getOrdre();
         $familles = $em->getRepository('NaoBundle:Especes')->getFamille();
         $oiseaux = $em->getRepository('NaoBundle:Especes')->getOiseaux();
 
+        $oiseauField = $request->get('oiseauField');
+
+        $getNbObservationsAvecNomOiseauAccepte= $em->getRepository('NaoBundle:Observation')->getNbObservationsAvecNomOiseauAccepte($oiseauField);
+
+        $NbObservationsAvecNomOiseauAccepte = count($getNbObservationsAvecNomOiseauAccepte);
         return $this->render('NaoBundle:Recherche:recherche.html.twig', array (
-            'user'=>$user,
-            'ordres'=>$ordres,
-            'familles'=>$familles,
-            'oiseaux'=>$oiseaux
-        )
+            'user'              =>$user,
+            'ordres'            =>$ordres,
+            'familles'          =>$familles,
+            'oiseaux'           =>$oiseaux,
+            'NbObservationsAvecNomOiseauAccepte' =>$NbObservationsAvecNomOiseauAccepte
+
+            )
         );
     }
+
+
 
     /**
      * Ce que l'on peut faire sur la page recherche de coordonnées

@@ -25,18 +25,3 @@ services:
                 - "@twig"
                 - "@doctrine.orm.entity_manager"
 
-    nao_bundle.password_resetting:
-        class: NaoBundle\EventListener\PasswordResettingListener
-        arguments: ['@router']
-        tags:
-            - { name: kernel.event_subscriber }
-    nao_bundle.profile_edit:
-        class: NaoBundle\EventListener\ProfileEditListener
-        arguments: ['@router']
-        tags:
-            - { name: kernel.event_subscriber }
-    nao_bundle.change_password:
-        class: NaoBundle\EventListener\ChangePasswordListener
-        arguments: ['@router']
-        tags:
-            - { name: kernel.event_subscriber }

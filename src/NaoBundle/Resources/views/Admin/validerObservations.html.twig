@@ -9,7 +9,7 @@
 {% block body %}
     <a href="{{ path('adminPage') }}" class="btn btn-default return">retour à l'interface d'administration</a>
     <h1 id="title"><strong>liste des observations à valider</strong></h1>
-    {% if observationsavalider == null %}
+    {% if observationsAValider == null %}
         <p>il n'y a aucune observation à valider.</p>
     {% else %}
         <hr>
@@ -17,13 +17,13 @@
             <label>filtre par espèce</label>
             <input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off">
             <datalist id="oiseaux">
-                {% set oiseauxnom = [] %}
+                {% set oiseauxNom = [] %}
                 {% for oiseau in oiseaux %}
-                    {% if oiseau.nomvern in oiseauxnom %}
+                    {% if oiseau.nomVern in oiseauxNom %}
                     {% else %}
-                        {% if oiseau.nomvern != "" %}
-                            {% set oiseauxnom = oiseauxnom|merge([oiseau.nomVern]) %}
-                                <option class="oiseauOption" value="{{ oiseau.nomVern }}" id="{{ bird.id }}">
+                        {% if oiseau.nomVern != "" %}
+                            {% set oiseauxNom = oiseauxNom|merge([oiseau.nomVern]) %}
+                                <option class="oiseauOption" value="{{ oiseau.nomVern }}" id="{{ oiseau.id }}">
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -75,5 +75,9 @@
         {% endif %}
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/validerObservation.js') }}"></script>
+    <script src="{{ asset('js/validerObservation.js') }}">    </script>
+
+        <script>
+        var rechercherOiseauAValider = "{{ path('rechercheAvecOiseauEnAttente') }}"
+        </script>
 {% endblock %}

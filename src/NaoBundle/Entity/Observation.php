@@ -38,6 +38,7 @@ class Observation
      *
      * @ORM\Column(name="date", type="datetime", nullable=false)
      * @Assert\DateTime()
+     * @Assert\NotBlank(message = "Veuillez renseigner la date et l'heure")
      */
     private $date;
 
@@ -83,6 +84,7 @@ class Observation
      *      minMessage = "La latitude ne peut être inférieure à -90°",
      *      maxMessage = "La latitude ne peu être supérieure à 90°"
      * )
+     *
      */
     
     private $latitude;
@@ -93,6 +95,7 @@ class Observation
      * @ORM\Column(name="longitude", type="float")
      * @Assert\NotBlank(message = "Veuillez renseigner ce champ")
      * @Assert\Type(type="float", message="coordonnée invalide")
+     *
      */
     private $longitude;
 
