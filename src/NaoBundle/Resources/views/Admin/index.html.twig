@@ -10,7 +10,7 @@
 {% block body %}
 
         <h1 id="observationToValidateTitle">Observations à valider</h1>
-        <p>Il y a <span id="howMany">{{ nombreObservationAValider }} observation{% if nombreObservationAValider > 1 %}s{% endif %}</span> en attente de validation.</p>
+        <p>Nombres de Saisies soumises pour validartions:  <span id="howMany">{{ nombreObservationAValider }}</span>. </p>
         <hr>
 
     <div id="infos">
@@ -20,7 +20,7 @@
         <p><a href="{{ path('fos_user_profile_edit') }}">Modifier mes informations personnelles</a></p>
         <p><a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a></p>
 
-            <p><a href="{{ path('adminValiderObservationPage', {'page' : 1})  }}">Valider une observation</a></p>
+            <p><a href="{{ path('adminValiderObservationPage', {'page' : 1})  }}">Saisies soumises</a></p>
 
 
         <p><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>

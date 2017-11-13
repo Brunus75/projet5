@@ -42,7 +42,7 @@ class ObservationType extends AbstractType
             ))
 
             ->add('description', TextareaType::class, array(
-                'label' => 'Description',
+                'label' => 'Description (facultatif)',
                 'required' => false,
                 'invalid_message' => 'Champ obligatoire, 250 caractères max.'
 
@@ -55,7 +55,7 @@ class ObservationType extends AbstractType
 
 
             ->add('latitude', NumberType::class, array(
-                'label' => 'Latitude',
+                'label' => 'Coordonnées GPS: Latitude',
                 'invalid_message' => 'Caractères numériques uniquement',
                 'scale' => 10,
                 'attr' => array(
@@ -80,7 +80,7 @@ class ObservationType extends AbstractType
             ))
 
             ->add('save', SubmitType::class, array(
-                'label' => 'Enregistrer',
+                'label' => 'Valider',
                 'attr'=> array(
                     'class' => 'btnSubmit',
                 )

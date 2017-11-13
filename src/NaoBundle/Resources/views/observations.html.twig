@@ -29,11 +29,12 @@
                     {% endif %}
                 </div>
                 <div class="col-xs-6">
-                    <p class="nameOiseau">{{ Observation.oiseau.nomVern }}<br>
-                        <span class="date">le {{ Observation.date|date('d/m/Y') }}</span></p>
+                    <p class="nameOiseau">{{ Observation.oiseau.nomVern }}</p>
                     <p class="lat">Latitude : {{ Observation.latitude }}</p>
                     <p class="lon">Longitude : {{ Observation.longitude }}</p>
-                    <p class="lon">Ville : {{ Observation.ville }}</p>
+                    <p class="lon">Ville : {{ Observation.ville }}<br>
+                    <span class="date">le {{ Observation.date|date('d/m/Y H:i')}}</span></p>
+                    <p class="lon">Description : {{ Observation.description }}</p>
                 </div>
             </div>
         </div>

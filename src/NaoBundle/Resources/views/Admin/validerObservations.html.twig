@@ -8,7 +8,7 @@
 
 {% block body %}
     <a href="{{ path('adminPage') }}" class="btn btn-default return">retour à l'interface d'administration</a>
-    <h1 id="title"><strong>liste des observations à valider</strong></h1>
+    <h1 id="title"><strong>Saisies soumises</strong></h1>
     {% if observationsAValider == null %}
         <p>il n'y a aucune observation à valider.</p>
     {% else %}
@@ -52,10 +52,10 @@
                  </p>
                 {% set page = app.request.requestUri|split('/') %}
                 <form method="post" action="{{ path('confirmeObservation', {'page':page[page|length-1],'observationId':observationAValider.id}) }}">
-                    <input type="submit" class="btn btn-primary accept" value="Valider et Publier">
+                    <input type="submit" class="btn btn-primary accept" value="Approuver">
                 </form>
                 <form method="post" action="{{ path('refuseObservation', {'page':page[page|length-1],'observationId':observationAValider.id}) }}">
-                    <input type="submit" class="btn btn-danger refuse" value="Supprimer">
+                    <input type="submit" class="btn btn-danger refuse" value="Refuser">
                 </form>
                 <hr>
             {% endfor %}
