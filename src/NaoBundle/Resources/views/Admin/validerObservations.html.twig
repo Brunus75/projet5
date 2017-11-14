@@ -14,8 +14,8 @@
     {% else %}
         <hr>
         <form method="get" onsubmit="return false">
-            <label>filtre par espèce</label>
-            <input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off">
+<!--            <label>filtre par espèce</label>  -->
+<!--            <input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off">   -->
             <datalist id="oiseaux">
                 {% set oiseauxNom = [] %}
                 {% for oiseau in oiseaux %}
@@ -28,8 +28,8 @@
                     {% endif %}
                 {% endfor %}
             </datalist>
-            <button class="btn btn-info" id="searchButton">Rechercher</button>
-            <button id="clear" class="btn btn-warning">Toutes les observations</button>
+ <!--           <button class="btn btn-info" id="searchButton">Rechercher</button>   -->
+ <!--           <button id="clear" class="btn btn-warning">Toutes les observations</button> -->
         </form><br>
         <hr>
         <div id="results">
