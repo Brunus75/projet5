@@ -1,5 +1,5 @@
 
-{% block title %}Carte interactive{% endblock %}
+{% block title %} {% endblock %}
 
     {% block stylesheet %}
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
@@ -16,8 +16,8 @@
 
     <div class="row">
         <div class="col-xs-8">
-            <h1 id="titleFormSearch">Recherche</h1>
-            <h2 id="subTitleFormSearch"> par espèces d'oiseau</h2>
+            <h2 id="titleFormSearch">Recherche par espèces d'oiseau</h2>
+            <h2 id="subTitleFormSearch">Veuillez choisir l'espèces d'oiseau</h2>
         </div>
         <div class="col-xs-4">
             <img id="oiseau" src="{{ asset('images/oiseau.jpg') }}" alt="oiseau">
@@ -94,6 +94,12 @@
         var rechercheFamille =  "{{ path('rechercheAvecFamille') }}";
         var rechercherOiseau = "{{ path('rechercheAvecOiseauAccepte') }}"
     </script>
+
+    <script>
+
+
+    </script>
+
 
    <script>
 

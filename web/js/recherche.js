@@ -214,12 +214,17 @@ $(function(){
 
     filterOiseaux();
 
+    var champ = Document.getElementById('input');
+    if( champ.length < 3 ) {
+        window.alert("Saisir 3 caractères minimum");
+    }
+
     //Get gps coordinates from controller to display marker for an untreated observation
     var $latGPS = $('.alert-success_lat').html();
     var $lonGPS = $('.alert-success_lon').html();
     if ($latGPS !== false && $lonGPS !== false){
-        var marker = L.marker([46.52, 2.43]).addTo(mymap);
-  //  var marker = L.marker([$latGPS, $lonGPS]).addTo(mymap);
+ //       var marker = L.marker([46.52, 2.43]).addTo(mymap);
+    var marker = L.marker([$latGPS, $lonGPS]).addTo(mymap);
     }
 });
 
