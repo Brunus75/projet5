@@ -1,7 +1,7 @@
 $(function(){
 
     //Leaflet : bibliothèque Javascript pour afficher les carte interactives
-    var mymap = L.map('mapid').setView([48.857482, 2.346372], 5);
+    var mymap = L.map('mapid').setView([48.857482, 2.346372], 12);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
         maxZoom: 18,
@@ -24,7 +24,9 @@ $(function(){
     var $orderField = $('select#ordres');
     var $familyField = $('select#familles');
     var $oiseauField = $('#oiseauField');
-    var i=0;
+    var t=0;
+    var markers = L.markerClusterGroup();
+    var markersList = [];
 
     //fonction pour effacer la carte
     $('#clearMap').click(function (e) {
@@ -77,7 +79,7 @@ $(function(){
     };
     filterOrder();
 
-   // fonction qui fait exactement la même chose que précédemment, mais pour les oiseaux (trier par famille)
+    // fonction qui fait exactement la même chose que précédemment, mais pour les oiseaux (trier par famille)
     var filterFamily = function(){
         $familyField.on('change', function (e) {
             e.preventDefault();
@@ -169,43 +171,49 @@ $(function(){
                                 $roleString = 'Administrateur';
                             }
 
-                            if (i === 0){
-                            $('#colMap').append(
-                                '<div class="col-md-5 col-xs-12 observationContainer ajaxContainer">' +
-                                '<div class="row layer">' +
-                                '<div class="sheet">' +
-                                '<div class="col-xs-4">' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '<div class="row contain ajax">' +
-                                '<div class="col-xs-6">' +
-                                '<p class="link"><a href="' + value.oiseau.url + '">Consulter la fiche INPN de l\'oiseau</a></p>' +
-                                '</div>' +
-                                '</div>' +
-                                i++
-                            );
+                            if (t === 0){
+                                $('#colMap').append(
+                                    '<div class="col-md-5 col-xs-12 observationContainer ajaxContainer">' +
+                                    '<div class="row layer">' +
+                                    '<div class="sheet">' +
+                                    '<div class="col-xs-4">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="row contain ajax">' +
+                                    '<div class="col-xs-6">' +
+                                    '<p class="link"><a href="' + value.oiseau.url + '">Consulter la fiche INPN de l\'oiseau</a></p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    t++
+                                );
                             }
 
-                            var marker = L.marker([value.latitude, value.longitude]).addTo(mymap);
-                            marker.bindPopup('<b><a href="../uploads/images/' + value.image.id + '.' + value.image.ext + '" class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../uploads/images/' + value.image.id + '.' + value.image.ext + '" alt="' + value.image.alt + '" /></a>' +value.oiseau.nomVern+"<br>"+"observé par "+ value.user.username+"<br>"+value.latitude+", "+value.longitude+"<br>à "+value.ville+"<br> le "+date+"</b>");
+                            // Marqueurs & regroupeurs
 
-                        } else {
-                            var circle = L.circle([value.latitude, value.longitude], {
-                                color: 'red',
-                                fillColor: '#f03',
-                                fillOpacity: 0.5,
-                                radius: 5000
-                                }).addTo(mymap);
-                        }
+
+                                    var marker = new L.marker([value.latitude, value.longitude]);
+
+                                    markersList.push(marker);
+                                    markers.addLayer(marker);
+                                    if (value.image != null) {
+
+                                        marker.bindPopup('<b><a href="../uploads/images/' + value.image.id + '.' + value.image.ext + '" class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../uploads/images/' + value.image.id + '.' + value.image.ext + '" alt="' + value.image.alt + '" /></a>' + value.oiseau.nomVern + "<br>" + "observé par " + value.user.username + "<br>" + value.latitude + ", " + value.longitude + "<br>à " + value.ville + "<br> le " + date + "</b>");
+
+                                    }
+                                    else {
+
+                                        marker.bindPopup('<b><a href="../images/no-photos.png"' + ' class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../images/no-photos.png' + '" alt="' + "photos non prise" + '" /></a>' + value.oiseau.nomVern + "<br>" + "observé par " + value.user.username + "<br>" + value.latitude + ", " + value.longitude + "<br>à " + value.ville + "<br> le " + date + "</b>");
+
+                                    }
+
+                            mymap.addLayer(markers);
+
+                                }
 
                     });
 
-                    var markers = L.markerClusterGroup();
-                    markers.addLayer(L.marker(getRandomLatLng(map)));
-
-                    map.addLayer(markers);
-            })
+                })
             };
             submit();
         });
@@ -214,17 +222,12 @@ $(function(){
 
     filterOiseaux();
 
-    var champ = Document.getElementById('input');
-    if( champ.length < 3 ) {
-        window.alert("Saisir 3 caractères minimum");
-    }
-
-    //Get gps coordinates from controller to display marker for an untreated observation
+    //Obtenir les coordonnées GPS du contrôleur pour afficher le marqueur pour une observation non traitée
     var $latGPS = $('.alert-success_lat').html();
     var $lonGPS = $('.alert-success_lon').html();
     if ($latGPS !== false && $lonGPS !== false){
- //       var marker = L.marker([46.52, 2.43]).addTo(mymap);
-    var marker = L.marker([$latGPS, $lonGPS]).addTo(mymap);
+        var marker = L.marker([46.52, 2.43]).addTo(mymap);
+        //  var marker = L.marker([$latGPS, $lonGPS]).addTo(mymap);
     }
 });
 

@@ -5,8 +5,20 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
               integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
               crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+                integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                crossorigin=""></script>
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.2.0/dist/MarkerCluster.css" />
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.2.0/dist/MarkerCluster.Default.css" />
+        <script src='https://unpkg.com/leaflet.markercluster@1.2.0/dist/leaflet.markercluster.js'>  </script>
+
+
+        <link rel="stylesheet" href="{{ asset('dist/MarkerCluster.css') }}" />
+        <link rel="stylesheet" href="{{ asset('dist/MarkerCluster.Default.css') }}" />
+
+        <script src="{{ asset('dist/leaflet.markercluster-src.js') }}"></script>
+
+
         <link rel="stylesheet" href="{{ asset('css/recherche.css') }}"/>
 
     {% endblock %}
@@ -41,7 +53,7 @@
         </select><br>
 
         <label>Nom d'oiseau</label>
-        <input class="form-control" list="oiseaux" id="oiseauField" autocomplete="off" value="Saisir 3 caractères minimum" >
+        <input class="form-control" type="text" list="oiseaux" id="oiseauField" autocomplete="off" value="Saisir 3 caractères minimum" >
         <datalist id="oiseaux">
             {% set oiseauxNom = [] %}
             {% for oiseau in oiseaux %}
@@ -87,6 +99,7 @@
 {% block javascripts %}
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
+
     <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-select2.js') }}"></script>
 
     <script>
@@ -95,59 +108,31 @@
         var rechercherOiseau = "{{ path('rechercheAvecOiseauAccepte') }}"
     </script>
 
-    <script>
-
-
+ <!--   <script>
+        function lettresmini(){
+        }
+        document.getElementById('oiseauField');
+        if( oiseauField.length < 3 ) {
+            window.alert("Saisir 3 caractères minimum");
+        }
     </script>
-
+-->
 
    <script>
 
-        var lat = document.getElementById("observation_latitude");
-        var lon = document.getElementById("observation_longitude");
+         var lat = document.getElementById("observation_latitude");
+         var lon = document.getElementById("observation_longitude");
 
- /*       function geoGPS(){if (empty($_POST["observation_latitude"]))
-        {
-            showError()
-            } else {
-            showCoordinates()
-            }
-        }
-
-        function showCoordinates(value) {
-            lat.value =  value.latitude;
-            lon.value =  value.longitude;
-        }
-
-        function showError(error) {
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    alert ("L'utilisateur a refusé la demande de géolocalisation.");
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    alert ("L'information de géolocalisation n'est pas disponible.");
-                    break;
-                case error.TIMEOUT:
-                    alert ("La demande pour obtenir la géolocalisation a expiré");
-                    break;
-                case error.UNKNOWN_ERROR:
-                    alert ("Une erreur est survenue.");
-                    break;
-            }
-        }
-
-        geoGPS();
-*/
     </script>
     
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-            crossorigin=""></script>
-    <script src='https://unpkg.com/leaflet.markercluster@1.2.0/dist/leaflet.markercluster.js'>  </script>
+
+
 
     <script src="{{ asset('js/js-md5/js/md5.min.js') }}"></script>
     <script src="{{ asset('js/jquery.scrollToTop.min.js') }}"></script>
 
     <script src="{{ asset('js/recherche.js') }}"></script>
+
+
 
 {% endblock %}
