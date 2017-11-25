@@ -10,7 +10,7 @@
 {% block body %}
 
         <h1 id="observationToValidateTitle">Saisies soumises</h1>
-        <p>Nombres de Saisies soumises pour validartions:  <span id="howMany">{{ nombreObservationAValider }}</span>. </p>
+        <p>Nombre de Saisies soumises pour validations:  <span id="howMany">{{ nombreObservationAValider }}</span>. </p>
         <hr>
 
     <div id="infos">
@@ -26,7 +26,7 @@
         <p><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
     </div>
     <hr>
-    <h1 id="myMsg">Mes observations</h1>
+    <h2 id="myMsg">Mes observations</h2>
     {% if Observations == null %}
         <p>Vous n'avez fait aucune observation.</p>
     {% else %}

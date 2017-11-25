@@ -38,17 +38,11 @@ class RechercheController extends Controller
         $familles = $em->getRepository('NaoBundle:Especes')->getFamille();
         $oiseaux = $em->getRepository('NaoBundle:Especes')->getOiseaux();
 
-        $oiseauField = $request->get('oiseauField');
-
-        $getNbObservationsAvecNomOiseauAccepte= $em->getRepository('NaoBundle:Observation')->getNbObservationsAvecNomOiseauAccepte($oiseauField);
-
-        $NbObservationsAvecNomOiseauAccepte = count($getNbObservationsAvecNomOiseauAccepte);
         return $this->render('NaoBundle:Recherche:recherche.html.twig', array (
             'user'              =>$user,
             'ordres'            =>$ordres,
             'familles'          =>$familles,
             'oiseaux'           =>$oiseaux,
-            'NbObservationsAvecNomOiseauAccepte' =>$NbObservationsAvecNomOiseauAccepte
 
             )
         );

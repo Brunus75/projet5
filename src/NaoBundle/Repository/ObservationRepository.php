@@ -228,7 +228,7 @@ class ObservationRepository extends EntityRepository
     }
 
     /**
-     * Méthode pour obtenir le nombbre de toutes les observations par espèces Accepte
+     * Méthode pour obtenir le nombre de toutes les observations par espèces Accepte
      * @param $oiseauId
      * @return array
      */
@@ -237,7 +237,7 @@ class ObservationRepository extends EntityRepository
 
         $toValidate = "accepte";
 
-        $qb ->select('COUNT(o.id)')
+        $qb
             ->where('o.oiseau = :especes_id')
             ->setParameter('especes_id', $oiseauField)
             ->andWhere('o.statut = :toValidate')

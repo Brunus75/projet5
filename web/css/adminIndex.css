@@ -9,25 +9,25 @@ hr{
     border: 2px #C5A077 solid;
 }
 form label{
-    font-family: "ComfortaaR", Arial;
+    font-family: "RobotoR", Arial, serif;;
     color:#387392;
 }
 #welcomeMsg, #myMsg, #observationToValidateTitle{
-    font-family: "ComfortaaB", Arial;
+    font-family: "RobotoB", Arial, serif;;
     font-size: 1.6em;
 }
 #howMany{
     color: #7EBEA5;
-    font-family: "ComfortaaB", Arial;
+    font-family: "RobotoB", Arial, serif;;
 }
 #subInfos{
-    font-family: "ComfortaaR", Arial;
+    font-family: "RobotoR", Arial, serif;;
     font-size: 1.2em;
 }
 #infos p, #myMsg p{
     margin: 10% 0 3% 0;
     font-size: 1.1em;
-    font-family: "ComfortaaR", Arial;
+    font-family: "RobotoR", Arial, serif;;
 }
 #infos a:hover{
     text-decoration: none;
@@ -40,10 +40,10 @@ form label{
     background-color: #387392;
     border-color: #387392;
     color:white;
-    font-family: "ComfortaaB", Arial;
+    font-family: "RobotoB", Arial, serif;;
 }
 #modificationTitle, #changePasswordTitle{
-    font-family: "ComfortaaB", Arial;
+    font-family: "RobotoB", Arial, serif;;
     font-size: 1.3em;
     margin-bottom: 10%;
 }
@@ -51,7 +51,7 @@ form label{
     background-color: #387392;
     border-color: #387392;
     color:white;
-    font-family: "ComfortaaB", Arial;
+    font-family: "RobotoB", Arial, serif;
     padding:2%;
     width: 50%;
 }
@@ -67,10 +67,10 @@ form label{
     background-color: #477E68;
     border-color: #387392;
     color:white;
-    font-family: "ComfortaaB", Arial;
+    font-family: "RobotoB", Arial, serif;;
 }
 .month{
-    font-family: "ComfortaaR", Arial;
+    font-family: "RobotoR", Arial, serif;
     font-size: 1.1em;
     margin-top: 15%;
 }

@@ -72,9 +72,8 @@
         <button id="searchButton" class="btn btn-info">Je recherche</button>
     </div>
 
-    {% if NbObservationsAvecNomOiseauAccepte is defined %} <h2 id="observationValideEspece">Nombre d'observations effectuées: </h2>
-        <p>Il y a <span id="howMany">{{ NbObservationsAvecNomOiseauAccepte }} observation{% if NbObservationsAvecNomOiseauAccepte > 1 %}s{% endif %}</span> validées.</p>
-        <hr>{% endif %}
+        <p><span id="howMany"> </span></p>
+        <hr>
 
     <div id="mapContainer">
         <div>

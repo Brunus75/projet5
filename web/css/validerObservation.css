@@ -2,3 +2,12 @@
     font-family: "Roboto";
     src: url('../font/Roboto/Roboto-Bold.ttf');
 }
+div#results {
+    padding: 0;
+
+}
+
+div#results .description {
+    padding: 0;
+
+}

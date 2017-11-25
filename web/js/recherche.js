@@ -154,6 +154,7 @@ $(function(){
 
                 }).done(function(response){
                     $('#errorMsg').remove();
+                    $('#howMany').text('Il y a ' + response.observations.length + ' observations validées');
                     $.each(response.observations, function(key, value){
                         var date = new Date(value.date.date);
                         date = (date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear());
@@ -198,19 +199,18 @@ $(function(){
                                     markers.addLayer(marker);
                                     if (value.image != null) {
 
-                                        marker.bindPopup('<b><a href="../uploads/images/' + value.image.id + '.' + value.image.ext + '" class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../uploads/images/' + value.image.id + '.' + value.image.ext + '" alt="' + value.image.alt + '" /></a>' + value.oiseau.nomVern + "<br>" + "observé par " + value.user.username + "<br>" + value.latitude + ", " + value.longitude + "<br>à " + value.ville + "<br> le " + date + "</b>");
+                                        marker.bindPopup('<b><a href="../uploads/images/' + value.image.id + '.' + value.image.ext + '" class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../uploads/images/' + value.image.id + '.' + value.image.ext + '" alt="' + value.image.alt + '" /></a>' + value.oiseau.nomVern + "<br>" + "observé par " + value.user.username + "<br>" + value.latitude + ", " + value.longitude + "<br> le " + date + "</b>");
 
                                     }
                                     else {
 
-                                        marker.bindPopup('<b><a href="../images/no-photos.png"' + ' class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../images/no-photos.png' + '" alt="' + "photos non prise" + '" /></a>' + value.oiseau.nomVern + "<br>" + "observé par " + value.user.username + "<br>" + value.latitude + ", " + value.longitude + "<br>à " + value.ville + "<br> le " + date + "</b>");
+                                        marker.bindPopup('<b><a href="../images/no-photos.png"' + ' class="thumbnail" target="_blank" title="Ouvrir l\'image dans un nouvel onglet"><img class="imageObservation" src="../images/no-photos.png' + '" alt="' + "photos non prise" + '" /></a>' + value.oiseau.nomVern + "<br>" + "observé par " + value.user.username + "<br>" + value.latitude + ", " + value.longitude + "<br> le " + date + "</b>");
 
                                     }
 
-                            mymap.addLayer(markers);
+                                    mymap.addLayer(markers);
 
-                                }
-
+                        }
                     });
 
                 })
@@ -222,12 +222,15 @@ $(function(){
 
     filterOiseaux();
 
+
+
+
     //Obtenir les coordonnées GPS du contrôleur pour afficher le marqueur pour une observation non traitée
     var $latGPS = $('.alert-success_lat').html();
     var $lonGPS = $('.alert-success_lon').html();
     if ($latGPS !== false && $lonGPS !== false){
         var marker = L.marker([46.52, 2.43]).addTo(mymap);
-        //  var marker = L.marker([$latGPS, $lonGPS]).addTo(mymap);
+    //    var marker = L.marker([$latGPS, $lonGPS]).addTo(mymap);
     }
 });
 

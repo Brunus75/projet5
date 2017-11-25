@@ -27,7 +27,7 @@ class ObservationType extends AbstractType
                 [
                     'label'=> 'Date d\'observation',
                     'view_timezone' => 'Europe/Paris',
-                    'date_widget' => 'single_text', 'time_widget' => "single_text",
+                    'date_widget' => 'single_text', 'time_widget' => 'single_text',
                     'data' => new \DateTime('now')
                 ]
             )
@@ -57,7 +57,7 @@ class ObservationType extends AbstractType
             ->add('latitude', NumberType::class, array(
                 'label' => 'Coordonnées GPS: Latitude',
                 'invalid_message' => 'Caractères numériques uniquement',
-                'scale' => 10,
+                'scale' => 6,
                 'attr' => array(
                     'onchange' => 'codeLatLng()'
                 )
@@ -67,17 +67,12 @@ class ObservationType extends AbstractType
             ->add('longitude', NumberType::class, array(
                 'label' => 'Longitude',
                 'invalid_message' => 'Caractères numériques uniquement',
-                'scale' => 10,
+                'scale' => 6,
                 'attr' => array(
                     'onchange' => 'codeLatLng()'
                 )
             ))
 
-            ->add('ville', TextareaType::class, array(
-                'label' => 'Ville',
-                'required' => false,
-                'invalid_message' => 'Champ obligatoire,  caractères 30 max.'
-            ))
 
             ->add('save', SubmitType::class, array(
                 'label' => 'Valider',

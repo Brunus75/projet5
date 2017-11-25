@@ -99,15 +99,6 @@ class Observation
      */
     private $longitude;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville", type="text", nullable=false)
-     * @Assert\Type("string")
-     * @Assert\Length(max=50)
-     */
-    private $ville;
-
 
 
     /**
@@ -302,29 +293,6 @@ class Observation
         return $this->longitude;
     }
 
-    /**
-     * Set ville
-     *
-     * @param string $ville
-     *
-     * @return Observation
-     */
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    /**
-     * Get ville
-     *
-     * @return string
-     */
-    public function getVille()
-    {
-        return $this->ville;
-    }
 
 }
 
