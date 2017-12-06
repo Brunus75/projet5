@@ -1,72 +1,32 @@
-Symfony Standard Edition
-========================
+# NOA - Nos amis les oiseaux
+## OpenClassRooms Parcours Chef de Projet Multimedia :
+### Projet N°5 - Création d'une application participative permettant l'observation des espèces d'oiseaux. 
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Installation
+------------
 
-What's inside?
---------------
+1) Download et dézipper le fichier P5-Team5.zip <a href="https://1drv.ms/f/s!AptwH26DXwQsgf8kNAYFqoOjYJkqZQ">ICI</a>
 
-The Symfony Standard Edition is configured with the following defaults:
+2) A la racine du projet, mettre à jour le composer : php composer.phar update
 
-  * An AppBundle you can use to start coding;
+3) Compléter le fichier parameters.yml sur l'exemple de parameters.yml.dist
+  - Connexion à une boîte mail d'envois
+  - Connexion à la base de donnée
+ 
+4) Créer la base de donnée sur le serveur local : php bin/console doctrine:database:create
 
-  * Twig as the only configured template engine;
+5) Charger les tables doctrines dans la base de donnée : php bin/console doctrine:schema:update --force
 
-  * Doctrine ORM/DBAL;
+6) Importer les données de la BDD, table "especes" <a href="https://1drv.ms/u/s!AptwH26DXwQsgf8oOFTF3eq_RnnJfg">BDD - P5 format SQL</a>
 
-  * Swiftmailer;
+7) Création d'un "User" avec son "Role"
 
-  * Annotations enabled for everything.
+    - php bin/console fos:user:create "pseudo email pass"
 
-It comes pre-configured with the following bundles:
+    - php bin/console fos:user:promote "pseudo role"
+      ( "role" => ORNITHOLOGUE )
+      
+8) C'est prêt!
 
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev env) - Adds code generation
-    capabilities
-
-  * [**WebServerBundle**][14] (in dev env) - Adds commands for running applications
-    using the PHP built-in web server
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.3/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.3/doctrine.html
-[8]:  https://symfony.com/doc/3.3/templating.html
-[9]:  https://symfony.com/doc/3.3/security.html
-[10]: https://symfony.com/doc/3.3/email.html
-[11]: https://symfony.com/doc/3.3/logging.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
-[14]: https://symfony.com/doc/current/setup/built_in_web_server.html
+==============
